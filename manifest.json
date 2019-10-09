@@ -1,0 +1,11 @@
+{
+  "name": "CAMS login helper",
+  "version": "0.0.1",
+  "description": "Closes the popup test and auto clicks the ferpa agreement.",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "permissions": ["activeTab", "declarativeContent", "storage"]
+}
