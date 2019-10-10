@@ -1,11 +1,14 @@
 {
   "name": "CAMS login helper",
-  "version": "0.0.1",
-  "description": "Closes the popup test and auto clicks the ferpa agreement.",
+  "version": "1.0",
+  "description": "Prevents the popup test and auto clicks the ferpa agreement when logging into Blackburn College Faculty Portal.",
   "manifest_version": 2,
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
-  "permissions": ["activeTab", "declarativeContent", "storage"]
+  "content_scripts": [
+    {
+      "matches": ["https://portals.blackburn.edu/efaculty/login.asp"],
+      "run_at": "document_start",
+      "js": ["loginpagescript.js"]
+    }
+  ],
+  "permissions": []
 }
