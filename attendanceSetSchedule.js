@@ -8,7 +8,8 @@ console.log(options);
 console.log("aeifjeifjeifjeifjeifj");
 let wasSet = false;
 function setScheduleToday() {
-  const today = days[new Date().getDay()];
+  const TODAYDATE = new Date();
+  const today = days[TODAYDATE.getDay()];
   for (let i = 0; i < options.length; i++) {
     const option = options[i];
     const innerT = option.innerText;
@@ -41,7 +42,10 @@ function setScheduleToday() {
         const op = options[j];
         const v = op.value;
         if (op.days.includes(dayLetter)) {
+          //how many days ago?
+          TODAYDATE.setDate(TODAYDATE.getDate() - (count + 1));
           setTimeout(() => {
+            document.querySelector("#datefrom").value = TODAYDATE.toLocaleDateString();
             selector.value = v;
           }, 10);
 
