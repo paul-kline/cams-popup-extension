@@ -1,8 +1,11 @@
 console.log("0007");
 // window.addEventListener("DOMContentLoaded", event => {
 console.log("DOM fully loaded and parsed");
-
-document.querySelector("#FERPA").checked = true;
+try {
+  document.querySelector("#FERPA").checked = true;
+} catch (e) {
+  console.log("ferpa checkbox checking failed:", e);
+}
 
 const auto_login = () => {
   console.log("attempting login");

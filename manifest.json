@@ -1,17 +1,18 @@
 {
-  "name": "CAMS++",
-  "version": "1.0.4",
-  "description": "Prevents the popup test and auto clicks the ferpa agreement when logging into Blackburn College Faculty Portal.",
+  "name": "CAMS Helper",
+  "version": "1.0.7",
+  "description": "Provides various improvements when interacting with the CAMS system.",
   "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": ["https://portals.blackburn.edu/efaculty/login.asp"],
+      "matches": ["https://portals.blackburn.edu/*/login.asp"],
       "js": ["loginpagescript.js"]
     },
     {
-      "matches": ["https://portals.blackburn.edu/efaculty/*"],
+      "matches": ["https://portals.blackburn.edu/*"],
       "run_at": "document_start",
-      "js": ["preventAlerts.js"]
+      "js": ["preventAlerts.js"],
+      "exclude_matches": ["https://portals.blackburn.edu/efaculty/ceFacultySchedules.asp*"]
     },
     {
       "matches": ["https://portals.blackburn.edu/efaculty/cmCourseManagementOptions*"],
@@ -36,6 +37,11 @@
     {
       "matches": ["https://portals.blackburn.edu/efaculty/cmFacultyAttendanceDateRange.asp*"],
       "js": ["ammendTitleToClass.js"]
+    },
+    {
+      "matches": ["https://portals.blackburn.edu/efaculty/ceFacultySchedules.asp*"],
+
+      "js": ["facultyScheduleHarvest.js"]
     }
   ],
   "permissions": ["storage"]
