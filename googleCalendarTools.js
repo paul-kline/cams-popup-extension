@@ -74,7 +74,12 @@ function addCode() {
 addCode();
 async function exportToGoogle(events, callback) {
   console.log("boop. export clicked");
-  await handleAuthClick();
+  const r = await handleAuthClick();
+  console.log("result of handle authclient:", r);
+  if (r.error) {
+    console.log("abandon export:", r.error);
+    return;
+  }
   // const batch = gapi.client.newBatch();
   events.forEach(event => {
     console.log("event submitting is: ", event);
@@ -108,15 +113,24 @@ function deleteEvent(eventId, callback) {
   });
   request.execute(event => {
     console.log(event, "deleted");
-    callback(eventId, event);
+    if (callback) {
+      callback(eventId, event);
+    }
   });
 }
 function googleCode() {
   console.log("googleCode...");
   // Client ID and API key from the Developer Console
-  window.CLIENT_ID = "820527871859-o85ov91ar8rrnos73i6qslvjov5361j1.apps.googleusercontent.com";
-  const clientsecret = "fedE3mPOcBfcLJmWkU2d-F0l";
-  window.API_KEY = apikey = "AIzaSyD-K091cR8wf1wJYfxfGFgBdfaUwm_TEr4";
+  //this key is managed by paul.kline@blackburn.edu
+  window.CLIENT_ID = "1034386305664-ml1uq0ncrujg5hfo0dqd0im49tun1h73.apps.googleusercontent.com";
+
+  //pauliankline@gmail.com : "820527871859-o85ov91ar8rrnos73i6qslvjov5361j1.apps.googleusercontent.com";
+  // const clientsecret = "fedE3mPOcBfcLJmWkU2d-F0l";
+  //pauliankline@gmail.com managed key:
+  // window.API_KEY = apikey = "AIzaSyD-K091cR8wf1wJYfxfGFgBdfaUwm_TEr4";
+  //paul.kline@blackburn.edu managed key
+  window.API_KEY = apikey = "AIzaSyDQIAXi4vhBoqiKJ4Alc21LThU3J0hM0r0";
+
   // Array of API discovery doc URLs for APIs used by the quickstart
   window.DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
   // Authorization scopes required by the API; multiple scopes can be
@@ -192,6 +206,7 @@ function googleCode() {
       await gapi.auth2.getAuthInstance().signIn(f);
     } catch (e) {
       console.log("failed to sign in:", e);
+      return e;
     }
     console.log("booooooop signed in finished!");
   }

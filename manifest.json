@@ -1,6 +1,6 @@
 {
   "name": "CAMS Helper",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Provides various improvements when interacting with the CAMS system.",
   "manifest_version": 2,
   "content_scripts": [

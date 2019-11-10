@@ -147,18 +147,18 @@ function callExport() {
     elem.setAttribute("id", event.id);
     elem.innerHTML =
       "Events created for: " +
-      `<a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}')">delete event</button>`;
+      `<a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
     p.append(elem);
   });
 }
 function addCode() {
   const elem = document.createElement("script");
-  code += toEvents.toString() + "\n";
+  code = toEvents.toString() + "\n";
+  code += callExport.toString() + "\n";
   code += harvestSchedule.toString() + "\n";
   code += mergeEvents.toString() + "\n";
 
   elem.innerHTML = code;
   document.querySelector("body").append(elem);
-  addGoogleCode();
 }
 addCode();

@@ -143,7 +143,7 @@ function callExport() {
   exportToGoogle(events, function(event) {
     console.log("Events created for: " + event.htmlLink, event);
 
-    const str = `<div id='${event.id}'> Events created for: <a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}')">delete event</button></div>`;
+    const str = `<div id='${event.id}'> Events created for: <a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
     p.innerHTML = p.innerHTML + str;
   });
 }
