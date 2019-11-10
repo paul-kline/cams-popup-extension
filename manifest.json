@@ -1,6 +1,6 @@
 {
   "name": "CAMS Helper",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Provides various improvements when interacting with the CAMS system.",
   "manifest_version": 2,
   "content_scripts": [
@@ -41,7 +41,15 @@
     {
       "matches": ["https://portals.blackburn.edu/efaculty/ceFacultySchedules.asp*"],
 
-      "js": ["facultyScheduleHarvest.js"]
+      "js": ["googleCalendarTools.js", "facultyScheduleHarvest.js"]
+    },
+    {
+      "matches": [
+        "https://portals.blackburn.edu/estudent/cePortalMatrixSchedule.asp*",
+        "file:///C:/Users/pauli/Downloads/stuff/stuff/My%20Schedule.html"
+      ],
+
+      "js": ["googleCalendarTools.js", "studentScheduleHarvest.js"]
     }
   ],
   "permissions": ["storage"]
