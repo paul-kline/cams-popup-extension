@@ -203,7 +203,7 @@ function googleCode() {
     }
   ) {
     try {
-      await gapi.auth2.getAuthInstance().signIn(f);
+      return await gapi.auth2.getAuthInstance().signIn(f);
     } catch (e) {
       console.log("failed to sign in:", e);
       return e;

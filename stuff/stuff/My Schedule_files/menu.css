@@ -1,0 +1,119 @@
+.linkoption
+{
+    color: Black;
+    cursor: default;
+    display: block;
+    font-size: .9em;
+    font-weight: bold;
+    list-style-image: none;
+    padding: 3px 0px 3px 0px;
+    text-indent: 2px;
+    white-space: nowrap;
+    width: 100%;
+
+}
+.linkoption li
+{
+    background-color: #98B9E4;
+    margin-bottom: 10px;
+}
+
+.linkoption ul li
+{
+    background-color: White;
+    margin-bottom: 2px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+}
+
+.linkoption li a
+{
+    font-weight: normal;
+    margin: 2px 0px 2px 0px;
+    padding: 0px 0px 5px 0px;
+}
+/* =================  New Menu Classes =================== */
+
+.SubMenu
+{
+	border: none;
+	color: Black;
+	font-family: Verdana;
+	font-size: 11px;
+	height: 17px;
+	padding: 0px 0px 0px 0px;
+	text-align: left;
+	width: 100%;
+	vertical-align: middle;
+	z-index: 2;
+/*	height: 20px;  */
+}
+
+
+.SubMenuItems a:hover
+{
+	cursor: pointer;
+	font-weight: bolder;
+}
+
+.SubMenuItems
+{
+	display: none;
+    border: solid .5px #CEDEFA;
+}
+
+.SubMenuItems li
+{
+	padding: 0px 0px 0px 0px;
+}
+
+/************
+************/
+/*#nav
+{
+    background-color: #EDF2FB;
+    color: inherit;
+	position: relative;
+	top: 0;
+	left: 0;
+    width: 200px;
+    border-left:solid 1px #ADD1FF;
+    border-right:solid 1px #ADD1FF;
+    border-bottom:solid 1px #ADD1FF;
+	font-size: .8em;
+	}*/
+/* #nav li h1
+{
+	font-size: .9em;
+	background: url(../images/greygrad.gif) top left repeat-x #CEDEFA;
+	height: 31px;
+	line-height: 31px;
+	padding-left: 5px;
+	font-weight:bold;
+} */
+
+/* #nav li ul li a
+{
+	    color:#000;
+}
+*/
+
+/* #nav li li
+{
+	padding: 3px 0px 3px 5px;
+} */
+
+
+#nav.panel li li a:link, #nav.panel li li a:visited, #nav.panel li li a:hover, #nav.panel li li a:active
+{
+	display: block;
+	color: #000;
+	text-decoration: none;
+}
+#nav.panel li li a:hover
+{
+    background-color: #98b9e4;
+    color: inherit;
+}
+
+/* ================= End New Menu Classes =================== */

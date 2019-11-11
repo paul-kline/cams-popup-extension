@@ -36,7 +36,7 @@ title: "GENERAL COLLEGE PHYSICS I"
     timeZone: "America/Chicago"
   };
   if (c.enddate) {
-    const until_dt = toDateTime(c.enddate, c.endtime);
+    const until_dt = c.enddate;
     event.recurrence = [
       `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${c.day
         .split("")
@@ -62,7 +62,9 @@ function parseDate(str) {
   d.setMilliseconds(59);
   d.setMinutes(59);
   d.setHours(23);
-  [year, month, day] = str.split("-").map(Number.parseInt);
+  // console.log("str, str.split('-')", str, str.split("-"));
+  [year, month, day] = str.split("-").map(x => Number.parseInt(x, 10));
+  // console.log("year, month, day", year, month, day);
   d.setFullYear(year);
   d.setMonth(month - 1);
   d.setDate(day);
@@ -83,6 +85,7 @@ function harvestStudentSchedule() {
   const startDate = e && e.value ? parseDate(e.value) : new Date();
   const e2 = document.getElementById("enddate");
   const endDate = e2 && e2.value ? parseDate(e2.value) : undefined;
+  console.log("enddate", endDate);
   const rows = document.querySelectorAll("table[summary='Course Schedule'] > tbody > tr");
   const result = [];
   //order of info:
@@ -142,9 +145,11 @@ function callExport() {
   const p = document.querySelector(".Page_Logo").nextElementSibling;
   exportToGoogle(events, function(event) {
     console.log("Events created for: " + event.htmlLink, event);
-
-    const str = `<div id='${event.id}'> Events created for: <a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
-    p.innerHTML = p.innerHTML + str;
+    const elem = document.createElement("div");
+    elem.setAttribute("id", event.id);
+    const str = `Events created for: <a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
+    elem.innerHTML = str;
+    p.append(elem);
   });
 }
 function addCode() {

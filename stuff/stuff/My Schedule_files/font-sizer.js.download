@@ -1,0 +1,67 @@
+﻿$(document).ready(function() {
+
+    // declare a few constants:
+    var SMALL = 12; //small font size in pixels
+    var MEDIUM = 16;
+    var LARGE = 20; //larger size in pixels
+    var COOKIE_NAME = "student-font-sizer"; //Maybe give this the name of your site.
+
+    //make it small by default
+    var fontsize = MEDIUM;
+
+    // Only show text resizing links if JS is enabled
+    $(".fontSizer").show();
+
+    // if cookie exists set font size to saved value, otherwise create cookie
+    if ($.cookie(COOKIE_NAME)) {
+        fontsize = $.cookie(COOKIE_NAME);
+        //set initial font size for this page view:
+        $("html").css("font-size", fontsize + "px");
+        //set up appropriate class on font resize link:
+        if (fontsize == SMALL) { $("#smallFont").addClass("currentSize"); }
+        if (fontsize == LARGE) { $("#largeFont").addClass("currentSize"); }
+        if (fontsize == MEDIUM) { $("#normalFont").addClass("currentSize"); }
+    } else {
+        $("#normalFont").addClass("currentSize");
+        $.cookie(COOKIE_NAME, fontsize);
+    }
+
+    // large font-size link:
+    $("#largeFont").bind("click", function() {
+        if ((fontsize == SMALL) || (fontsize == MEDIUM)) {
+            fontsize = LARGE;
+            $("html").css("font-size", fontsize + "px");
+            $("#largeFont").addClass("currentSize");
+            $("#normalFont").removeClass("currentSize");
+            $("#smallFont").removeClass("currentSize");
+            $.cookie(COOKIE_NAME, fontsize);
+        }
+        return false;
+    });
+
+    // medium font-size link:
+    $("#normalFont").bind("click", function() {
+        if ((fontsize == SMALL) || (fontsize == LARGE)) {
+            fontsize = MEDIUM;
+            $("html").css("font-size", fontsize + "px");
+            $("#normalFont").addClass("currentSize");
+            $("#largeFont").removeClass("currentSize");
+            $("#smallFont").removeClass("currentSize");
+            $.cookie(COOKIE_NAME, fontsize);
+        }
+        return false;
+    });
+
+    // small font-size link:
+    $("#smallFont").bind("click", function() {
+        if ((fontsize == LARGE) || (fontsize == MEDIUM)) {
+            fontsize = SMALL;
+            $("html").css("font-size", fontsize + "px");
+            $("#smallFont").addClass("currentSize");
+            $("#largeFont").removeClass("currentSize");
+            $("#normalFont").removeClass("currentSize");
+            $.cookie(COOKIE_NAME, fontsize);
+        }
+        return false;
+    });
+});

@@ -1,0 +1,683 @@
+function openpopup(pageurl) {
+  sid='trs';
+  window.open(pageurl,'notes','toolbar=no,width=650,height=375,directories=no,status=no,scrollbars=yes,resizable=yes,menubar=no');
+}
+
+function openpopup2(pageurl) {
+  sid='trs';
+  window.open(pageurl,'notes','toolbar=no,width=650,height=430,directories=no,status=no,scrollbars=yes,resizable=yes,menubar=no');
+}
+
+function OnMouseOverEvent(obj)
+{   
+    if (obj.name !='' && obj.name != 'undefined')
+    {
+        document.getElementsByName(obj.name)[0].style.cursor = 'pointer';
+    }
+    else if (obj.id !='')
+    {
+        document.getElementById(obj.id).style.cursor = 'pointer';
+    }
+}
+function OnMouseOutEvent(obj)
+{
+    if (obj.name !='' && obj.name != 'undefined')
+    {
+        document.getElementsByName(obj.name)[0].style.cursor = 'default';
+    }
+    else if (obj.id !='')
+    {
+        document.getElementById(obj.id).style.cursor = 'default';
+    }
+}
+
+function hideDIV(divName)
+{
+    document.getElementById(divName).style.display = 'none';
+    document.getElementById(divName).style.visibility = 'hidden';
+}
+
+function showDIV(divName)
+{
+    document.getElementById(divName).style.display = 'block';
+    document.getElementById(divName).style.visibility = 'visible';
+}
+
+function ValidDateTime(dateTimeIn)
+{    
+    var regex=/(?=\d)^(?:(?!(?:10\D(?:0?[5-9]|1[0-4])\D(?:1582))|(?:0?9\D(?:0?[3-9]|1[0-3])\D(?:1752)))((?:0?[13578]|1[02])|(?:0?[469]|11)(?!\/31)(?!-31)(?!\.31)|(?:0?2(?=.?(?:(?:29.(?!000[04]|(?:(?:1[^0-6]|[2468][^048]|[3579][^26])00))(?:(?:(?:\d\d)(?:[02468][048]|[13579][26])(?!\x20BC))|(?:00(?:42|3[0369]|2[147]|1[258]|09)\x20BC))))))|(?:0?2(?=.(?:(?:\d\D)|(?:[01]\d)|(?:2[0-8])))))([-.\/])(0?[1-9]|[12]\d|3[01])\2(?!0000)((?=(?:00(?:4[0-5]|[0-3]?\d)\x20BC)|(?:\d{4}(?!\x20BC)))\d{4}(?:\x20BC)?)(?:$|(?=\x20\d)\x20))?((?:(?:0?[1-9]|1[012])(?::[0-5]\d){0,2}(?:\x20[aApP][mM]))|(?:[01]\d|2[0-3])(?::[0-5]\d){1,2})?$/;
+    if (!regex.test(dateTimeIn)) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+function Trim(str)
+{
+   return str.replace(/^\s*|\s*$/g,'');
+}
+
+function LTrim(str) 
+{
+    var re = /\s*((\S+\s*)*)/;
+    return str.replace(re, '$1');
+}
+
+function RTrim(str) 
+{
+    var re = /((\s*\S+)*)\s*/;
+    return str.replace(re, '$1');
+}
+
+function getAbsolutePos(el) {
+    var SL = 0, ST = 0;
+    var is_div = /^div$/i.test(el.tagName);
+    if (is_div && el.scrollLeft)
+        SL = el.scrollLeft;
+    if (is_div && el.scrollTop)
+        ST = el.scrollTop;
+    var r = { x: el.offsetLeft - SL, y: el.offsetTop - ST };
+    if (el.offsetParent) {
+        var tmp = this.getAbsolutePos(el.offsetParent);
+        r.x += tmp.x;
+        r.y += tmp.y;
+    }
+    return r;
+}
+
+function disableEnter(e)
+{    
+    return e.keyCode != 13
+}
+
+// date entry checker
+function checkdate(strField){
+
+    err = 0;
+    a=strField;
+    if (a.length == 0) {
+        return true;
+    }
+        if (a.substring(1, 2) == '/')
+          {a = '0' + a.substring(0,10);}
+        if (a.substring(4, 5) == '/')
+      {a  = a.substring(0 , 3) + '0' + a.substring(3, 10);}
+    if (a.length == 8)
+      {a = a.substring(0, 6) + '20' + a.substring(6, 10)}
+    if (a.length != 10) err=1
+    b = a.substring(0, 2)// month
+    c = a.substring(2, 3)// '/'
+    d = a.substring(3, 5)// day
+    e = a.substring(5, 6)// '/'
+    f = a.substring(6, 10)// year
+    //basic error checking
+    if (b<'01' || b>'12') err = 1
+    if (err==1){
+                return false;
+    }
+    if (c != '/') err = 1
+    if (d<'01' || d>'31') err = 1
+    if (err==1){
+                return false;
+    }
+    if (e != '/') err = 1
+    if (f<'0000' || f>'9999') err = 1
+    if (err==1){
+                return false;
+    }
+    //advanced error checking
+    // months with 30 days
+    if (b==4 || b==6 || b==9 || b==11){
+        if (d==31) err=1
+    }
+    // february, leap year
+    if (b==2){
+        // feb
+        g = parseInt(f / 4)
+        if (isNaN(g)) {
+            Err = 1
+        }
+        if (d>29) err=1
+        if (d==29 && ((f/4)!=parseInt(f/4))) err=1
+    }
+    if (a=='')
+      {
+        Err = 0
+      }
+    if (err==1){
+               return false;
+    }
+    else{
+    
+        return true;
+    }
+}
+
+// numeric entry checker
+function numericCheck(strField){
+    nr1=strField;
+    if (nr1 == '')
+    {
+        nr1 = 0
+    }
+    flg=0;
+    str='';
+    spc=''
+    arw='';
+    for (var i=0;i<nr1.length;i++)
+    {
+        cmp = '.0123456789'
+        tst = nr1.substring(i, i + 1)
+        if (cmp.indexOf(tst)<0)
+        {
+            flg++;
+            str+=' '+tst;
+            spc+=tst;
+            arw+='^';
+        }
+        else
+        {
+            arw+='_';
+        }
+    }
+    if (flg!=0)
+    {
+        if (spc.indexOf(' ')>-1)
+        {
+            str+=' and a space';
+        }
+        return false;
+    }
+    return true;
+    }
+
+//SSN Validation    
+function SSNValidation(ssn) {
+    var matchArr = ssn.match(/^(\d{3})-?\d{2}-?\d{4}$/);
+    var numDashes = ssn.split('-').length - 1;
+    if (matchArr == null || numDashes == 1) {
+        return false;
+    }
+    else 
+        if (parseInt(matchArr[1],10)==0) {
+            return false;
+        }
+        else {
+        return true;
+   }
+}
+// used for 508c compliance.
+function KeyPressed(el,e)
+{
+    var key;
+    if(window.event)
+          key = window.event.keyCode;     //IE
+    else
+          key = e.which;     //firefox
+    if (key == 13)
+    {
+        //Get the button the user wants to have clicked
+        if (el != null && el != 'undefined')
+        {
+            el.click();
+            if (window.event) event.keyCode = 0;
+        }
+    }
+}
+
+//Wait function pass in time to wait in miliseconds.    
+function wait(ms)
+{
+    var date = new Date();
+    var curDate = null;
+
+    do { curDate = new Date(); }
+    while(curDate-date < ms);
+}
+
+function displayItems(ID)
+{
+    var el = document.getElementById(ID);
+    var x = window.screenX;
+    var y = window.screenY;
+     
+    if (el.style.display == 'none' || el.style.display == '')
+    {
+        el.style.display = 'block';
+        window.scrollTo(x, y);
+    }
+    else
+    {
+        el.style.display = 'none';
+    }
+    el.focus();
+}
+function amountTest(src) 
+{
+    var regex = /^[0-9]+(\.[0-9]{2})$/;
+    return regex.test(src);
+}
+function initPanel() 
+{
+	if (!YAHOO.trs.container.wait) 
+	{
+		YAHOO.trs.container.wait = 
+				new YAHOO.widget.Panel('wait',  
+						{ width: '120px', 
+						  fixedcenter: true, 
+						  close: false, 
+						  draggable: false, 
+						  zindex: 2000,
+						  modal: true,
+						  visible: false
+						} 
+					);
+
+	}
+	YAHOO.trs.container.wait.setHeader('Processing...');
+	YAHOO.trs.container.wait.setBody('<img src="images/ajax-loader-2.gif" alt="Please Wait" />');
+	YAHOO.trs.container.wait.render(document.body);
+}
+function showWaitPanel()
+{
+    initPanel();
+	YAHOO.trs.container.wait.show();
+}
+function hideWaitPanel()
+{
+    if (YAHOO.trs.container.wait) 
+    {
+        YAHOO.trs.container.wait.hide();
+    }
+}
+function doPageReload(url)
+{
+    if (url.length == 0)
+    {
+        window.location.reload(true);
+    }
+    else
+    {
+        window.location.href = url;
+    }
+}
+function PopUpBlockerDetect()
+{
+    var popUpsBlocked, popup = window.open('about:blank','','directoryies=no,width=1,height=1,left=0,top=1024,scrollbars=no,menubar=no,status=no,titlebar=no,resizable=no');
+    if (!popup || typeof popup.closed == 'undefined')
+    {
+        popUpsBlocked = true;
+        alert('Pop-up blocked. Please disable pop-up blocker.');
+    }            
+    else
+    {
+        popUpsBlocked = false;
+    }
+
+    if (!popUpsBlocked)
+    {
+        popup.close();
+    }
+    createCookie(popupcookieName, popUpsBlocked, 'h', 2);
+    
+    return popUpsBlocked;
+}
+function SetAllCheckBoxes(FormName, FieldName, CheckValue)
+{
+	if(!document.forms[FormName])
+		return;
+	var objCheckBoxes = document.forms[FormName].elements[FieldName];
+	if(!objCheckBoxes)
+		return;
+	var countCheckBoxes = objCheckBoxes.length;
+	if(!countCheckBoxes)
+		objCheckBoxes.checked = CheckValue;
+	else
+		// set the check value for all check boxes
+		for(var i = 0; i < countCheckBoxes; i++)
+			objCheckBoxes[i].checked = CheckValue;
+}
+function colExpEle(BtnID, eToShowHide )
+{
+    var fBtn = document.getElementById(BtnID),fBtnValue = fBtn.value;
+    
+    if (fBtn.value.indexOf('Show') > -1)
+    {
+        fBtn.value = fBtnValue.replace(/Show/i, 'Hide');
+        document.getElementById(eToShowHide).className = 'divExpanded';
+    }
+    else
+    {
+        fBtn.value = fBtnValue.replace(/Hide/i, 'Show');
+        document.getElementById(eToShowHide).className = 'divCollapsed';
+    }
+}
+function validateDate(ele)
+{
+	var s_date = ele.value, rgdt_sa, rg_dt,re_dtTm,l,tmp,yy,mth,dd,s_time,s_date2;
+    if (s_date.length == 0)
+    {
+        return true;
+    }
+    switch (languageFormat)
+    {
+        case 'en-za':
+            rgdt_sa = /^(?=\d)(?:(?!(?:1582(?:\.|-|\/)10(?:\.|-|\/)(?:0?[5-9]|1[0-4]))|(?:1752(?:\.|-|\/)0?9(?:\.|-|\/)(?:0?[3-9]|1[0-3])))(?=(?:(?!000[04]|(?:(?:1[^0-6]|[2468][^048]|[3579][^26])00))(?:(?:\d\d)(?:[02468][048]|[13579][26]))\D0?2\D29)|(?:\d{4}\D(?!(?:0?[2469]|11)\D31)(?!0?2(?:\.|-|\/)(?:29|30))))(\d{4})([-\/.])(0?\d|1[012])\2((?!00)[012]?\d|3[01])(?:$|(?=\x20\d)\x20))?((?:(?:0?[1-9]|1[012])(?::[0-5]\d){0,2}(?:\x20[aApP][mM]))|(?:[01]\d|2[0-3])(?::[0-5]\d){1,2})?$/
+	        if (!rgdt_sa.test(s_date))
+	        {
+	            alert('Invalid Date: "' + s_date + '" using en-za');
+	            return false;
+	        }
+	        else
+	        {
+    	        return true;
+    	    }
+            break;
+        case 'en-gb':
+    //	    var rg_dt = /^(((0[1-9]|[12][0-9]|3[01])([/])(0[13578]|10|12)([/])(\d{4}))|(([0][1-9]|[12][0-9]|30)([/])(0[469]|11)([/])(\d{4}))|((0[1-9]|1[0-9]|2[0-8])([/])(02)([/])(\d{4}))|((29)(\/)(02)([/])([02468][048]00))|((29)([/])(02)([/])([13579][26]00))|((29)([/])(02)([.])([0-9][0-9][0][48]))|((29)([/])(02)([.])([0-9][0-9][2468][048]))|((29)([/])(02)([/])([0-9][0-9][13579][26]))) /;
+            rg_dt = /^(((0?[1-9]|[12]\d|3[01])[\.\-\/](0?[13578]|1[02])[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|((0?[1-9]|[12]\d|30)[\.\-\/](0?[13456789]|1[012])[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|((0?[1-9]|1\d|2[0-8])[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}))|(29[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)|00)))$/;
+	        if (!rg_dt.test(s_date))
+	        {
+	            alert('Invalid Date: "' + s_date + '" using en-gb');
+	            return false;
+	        }
+	        else
+	        {
+    	        return true;
+    	    }
+    	    break;
+	    case 'en-us':
+	        re_dtTm = /(^([0-9]|[0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])(\s{0,1})([AM|PM|am|pm]{2,2})$)|(^([0-9]|[0-1][0-9]|[2][0-3]):([0-5][0-9])(\s{0,1})([AM|PM|am|pm]{2,2})$)|(^([0-9]|[1][0-9]|[2][0-3])(\s{0,1})([AM|PM|am|pm]{2,2})$)/;
+	        re_dt = /((^(10|12|0?[13578])([/])(3[01]|[12][0-9]|0?[1-9])([/])((1[8-9]\d{2})|([2-9]\d{3}))$)|(^(11|0?[469])([/])(30|[12][0-9]|0?[1-9])([/])((1[8-9]\d{2})|([2-9]\d{3}))$)|(^(0?2)([/])(2[0-8]|1[0-9]|0?[1-9])([/])((1[8-9]\d{2})|([2-9]\d{3}))$)|(^(0?2)([/])(29)([/])([2468][048]00)$)|(^(0?2)([/])(29)([/])([3579][26]00)$)|(^(0?2)([/])(29)([/])([1][89][0][48])$)|(^(0?2)([/])(29)([/])([2-9][0-9][0][48])$)|(^(0?2)([/])(29)([/])([1][89][2468][048])$)|(^(0?2)([/])(29)([/])([2-9][0-9][2468][048])$)|(^(0?2)([/])(29)([/])([1][89][13579][26])$)|(^(0?2)([/])(29)([/])([2-9][0-9][13579][26])$))/;
+	
+	        l = s_date.length;
+
+	        switch (l)
+	        {
+		        case 0:
+			        return true;
+			        break;
+		        case 6:
+			        if (s_date.indexOf('/') < 0)
+			        {
+				        tmp = s_date.substring(0,2) + '/' + s_date.substring(2,4) + '/';
+				        yy = parseInt(s_date.substring(4));
+				        if (yy <= 30)
+				        {
+					        tmp = tmp + '20' + s_date.substring(4);
+				        }
+				        else
+				        {
+					        tmp = tmp + '19' + s_date.substring(4);
+				        }
+				        s_date = tmp;
+			        }
+			        break;
+		        case 8:
+			        if (s_date.indexOf('/') < 0)
+			        {
+				        mth = s_date.substring(0,2);
+				        dd = s_date.substring(2,4);
+				        yy = s_date.substring(4);
+				        s_date = mth + '/' + dd + '/' + yy;
+			        }
+			        break;		
+		        default:
+			        break;
+	        }
+
+	        if (s_date.indexOf(" ") > 0)
+	        {
+	            s_date2 = s_date.substring(0, s_date.indexOf(" "));
+	            s_time = s_date.substring(s_date.indexOf(" ")+1, s_date.length);
+	            if (!re_dtTm.test(s_time)) alert('Invalid Time: ' + s_time);
+	            s_date = s_date2;
+	        }
+        		
+            if (!re_dt.test(s_date)) 
+            {
+	            alert('Invalid date: ' + s_date);
+	            return false;
+            }
+            ele.value = s_date;	
+            return true;
+            break;
+        default:
+            return true;
+            break;
+    }
+}
+function DateAdd(objDate, strInterval, intIncrement)
+    {
+        
+        if(typeof(objDate) == "string")
+        {
+            objDate = new Date(objDate);
+ 
+            if (isNaN(objDate))
+            {
+                throw("DateAdd: Date is not a valid date");
+            }
+        }
+        else if(typeof(objDate) != "object" || objDate.constructor.toString().indexOf("Date()") == -1)
+        {
+            throw("DateAdd: First parameter must be a date object");
+        }
+ 
+        if(
+        strInterval != "M"
+        && strInterval != "D"
+        && strInterval != "Y"
+        && strInterval != "h"
+        && strInterval != "m"
+        && strInterval != "uM"
+        && strInterval != "uD"
+        && strInterval != "uY"
+        && strInterval != "uh"
+        && strInterval != "um"
+        && strInterval != "us"
+        )
+        {
+            throw("DateAdd: Second parameter must be M, D, Y, h, m, uM, uD, uY, uh, um or us");
+        }
+ 
+        if(typeof(intIncrement) != "number")
+        {
+            throw("DateAdd: Third parameter must be a number");
+        }
+ 
+        switch(strInterval)
+        {
+            case "M":
+            objDate.setMonth(parseInt(objDate.getMonth()) + parseInt(intIncrement));
+            break;
+ 
+            case "D":
+            objDate.setDate(parseInt(objDate.getDate()) + parseInt(intIncrement));
+            break;
+ 
+            case "Y":
+            objDate.setYear(parseInt(objDate.getYear()) + parseInt(intIncrement));
+            break;
+ 
+            case "h":
+            objDate.setHours(parseInt(objDate.getHours()) + parseInt(intIncrement));
+            break;
+ 
+            case "m":
+            objDate.setMinutes(parseInt(objDate.getMinutes()) + parseInt(intIncrement));
+            break;
+ 
+            case "s":
+            objDate.setSeconds(parseInt(objDate.getSeconds()) + parseInt(intIncrement));
+            break;
+ 
+            case "uM":
+            objDate.setUTCMonth(parseInt(objDate.getUTCMonth()) + parseInt(intIncrement));
+            break;
+ 
+            case "uD":
+            objDate.setUTCDate(parseInt(objDate.getUTCDate()) + parseInt(intIncrement));
+            break;
+ 
+            case "uY":
+            objDate.setUTCFullYear(parseInt(objDate.getUTCFullYear()) + parseInt(intIncrement));
+            break;
+ 
+            case "uh":
+            objDate.setUTCHours(parseInt(objDate.getUTCHours()) + parseInt(intIncrement));
+            break;
+ 
+            case "um":
+            objDate.setUTCMinutes(parseInt(objDate.getUTCMinutes()) + parseInt(intIncrement));
+            break;
+ 
+            case "us":
+            objDate.setUTCSeconds(parseInt(objDate.getUTCSeconds()) + parseInt(intIncrement));
+            break;
+        }
+
+        return objDate;
+}
+
+function TRSFormatDate(objDate)
+{
+    var strDate;
+    
+    if(typeof(objDate) == 'string')
+    {
+        objDate = new Date(objDate);
+
+        if (isNaN(objDate))
+        {
+            throw('DateAdd: Date is not a valid date');
+        }
+    }
+    else if(typeof(objDate) != 'object' || objDate.constructor.toString().indexOf('Date()') == -1)
+    {
+        throw('DateAdd: First parameter must be a date object');
+    } 
+    
+    switch (languageFormat)
+    {
+        case 'en-za':
+            strDate = objDate.getFullYear() + '/' + (objDate.getMonth() + 1) + '/' + objDate.getDate();
+            break;
+        case 'en-gb':
+            strDate = objDate.getDate() + '/' + (objDate.getMonth() + 1) + '/' + objDate.getFullYear();
+            break;
+        default:
+            strDate = (objDate.getMonth() + 1) + '/' + objDate.getDate() + '/' + objDate.getFullYear();
+            break;
+    }
+    
+    return strDate;
+}
+
+function truncateToDecimalPlace(num, dec) 
+{
+    var i,str;
+    if ((isNaN(num)) || (isNaN(dec)) || (dec < 0)) {
+        return num;
+    }
+    str = '' + num;  
+    if (-1 == str.indexOf('.')) {
+        str += '.';
+    }
+    for (i = 0; i < dec; i++) {
+        str += '0';
+    }
+    return str.slice(0, str.indexOf('.') + dec + (dec == 0 ? 0 : 1));
+}
+function sendPostCommon(url, op, parm, aSync)
+{
+    var status = AjaxRequest.post(
+    {
+        'url': url
+        , 'op': op
+        , 'parm': parm
+        , 'onSuccess': function(req)
+        {
+            var strobe = eval(req.responseText);
+            switch (op)
+            {
+                case 'AcK':
+                    // in this case, a1 must be delcared as a global variable on the client side.
+                    a1 = strobe.ack;
+                    break;
+            }
+        }
+        , 'onError': function(req)
+        {
+            alert('Ajax Call Failed');
+        }
+    }, aSync);
+}
+function getLocalKey()
+{
+    var url = 'ceProcess.asp', op = 'AcK', parm = '', aSync = false;
+    sendPostCommon(url, op, parm, aSync);
+}
+
+function CheckDate2(inDate)
+{
+    if (inDate.length == 0)
+    {
+        return false;
+    }
+
+    var validformat=/(?=\d)^(?:(?!(?:10\D(?:0?[5-9]|1[0-4])\D(?:1582))|(?:0?9\D(?:0?[3-9]|1[0-3])\D(?:1752)))((?:0?[13578]|1[02])|(?:0?[469]|11)(?!\/31)(?!-31)(?!\.31)|(?:0?2(?=.?(?:(?:29.(?!000[04]|(?:(?:1[^0-6]|[2468][^048]|[3579][^26])00))(?:(?:(?:\d\d)(?:[02468][048]|[13579][26])(?!\x20BC))|(?:00(?:42|3[0369]|2[147]|1[258]|09)\x20BC))))))|(?:0?2(?=.(?:(?:\d\D)|(?:[01]\d)|(?:2[0-8])))))([-.\/])(0?[1-9]|[12]\d|3[01])\2(?!0000)((?=(?:00(?:4[0-5]|[0-3]?\d)\x20BC)|(?:\d{4}(?!\x20BC)))\d{4}(?:\x20BC)?)(?:$|(?=\x20\d)\x20))?((?:(?:0?[1-9]|1[012])(?::[0-5]\d){0,2}(?:\x20[aApP][mM]))|(?:[01]\d|2[0-3])(?::[0-5]\d){1,2})?$/;
+
+    if (!validformat.test(inDate))
+    {
+        return false;
+    }
+    else
+    {
+        var month = inDate.split("/")[0], day = inDate.split("/")[1], year = inDate.split("/")[2], testDate = new Date(year, month - 1, day)
+
+        if ((testDate.getMonth() + 1 != month) || (testDate.getDate() != day) || (testDate.getFullYear() != year))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+function trs_Trim(stringToTrim)
+{
+    return stringToTrim.replace(/^\s+|\s+$/g, '');
+}
+function readCookie(name) 
+{
+	var nameEQ = name + '=', ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) 
+	{
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+function createCookie(name, value, expInc, expVal)
+{
+    var eDate = new Date(), expires = '';
+    if (expVal)
+    {
+        eDate.setTime(DateAdd(eDate, expInc, expVal))
+        expires = '; expires=' + eDate.toGMTString();
+    }
+    document.cookie = name + '=' + value + expires + '; path=/'
+}
+function checkPopUpBlocker()
+{
+    if (BrowserDetect.browser !== 'Chrome' && BrowserDetect.browser != 'Safari')
+    {
+        PopUpBlockerDetect();
+    }
+    else
+    {
+        if (typeof PopupWarning != 'undefined')
+            PopupWarning.init();
+    }
+}

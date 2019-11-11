@@ -1,0 +1,147 @@
+﻿/* Blue Colors */
+a, a:visited
+{
+   color:#2EB9ED;
+}
+
+a.active
+{
+    background:#2EB9ED url(../images/Right.gif) 2% 50% no-repeat !important; /* leave a space after image url and before positioning for ie7 */
+    color:#ffffff !important;
+    border-top:solid 1px #17ecff;
+    border-bottom: solid 1px #17ecff !important;
+}
+
+a:hover, #nav li a:hover
+{
+    color: #1d6a9a;
+}
+
+a.button 
+{
+    background:#2EB9ED;
+    color:#ffffff;
+    border: solid 1px #ffffff;
+}
+
+a.button:hover
+{
+    background: #1d6a9a;
+    color:#ffffff;
+}
+
+.highliteCell
+{
+    background: #2EB9ED;
+    border: solid 1px #ffffff;
+}
+
+.Page_Logo
+{
+    background:#2EB9ED;
+    border:solid 1px #ffffff;
+}
+
+span.Portal_Grid_Pager_Selected
+{
+    background:#1d6a9a;
+    color:#ffffff;
+    border: solid 1px #ffffff;
+}
+
+.Portal_Grid_Pager a
+{
+    background: #2EB9ED;
+    color:#ffffff;
+}
+
+.Portal_Grid_Pager a:hover
+{
+    background:#1d6a9a;
+    color:#ffffff;
+}
+
+#nav li h1
+{
+    background: #798088;
+    color: #ffffff;
+    border-top: solid 5px #2EB9ED;
+    border-bottom: solid 1px #666666;
+}
+
+#myCourses, #myCalendar
+{
+    border-top: solid 5px #2EB9ED;
+    border-bottom: solid 1px #666666;     
+}
+
+.Portal_Calendar_Day_Today
+{
+    background-color: #dfdfdf;
+    border: solid 2px #2EB9ED;
+  
+}
+
+.Portal_Container_ClientLogo
+{
+    background: url(../images/blue/trs_logo_blue.png) .5em 0 no-repeat;
+    float: left;
+    height: 70px;
+    width: 250px;
+}
+
+.Portal_Container_PortalLogo
+{
+    
+    background-image: url(../images/blue/logo_blue.gif);
+    
+}
+
+.groupRemaining
+{
+    border-top: solid 5px #2EB9ED;
+}
+
+.themeBg
+{
+    background:#2EB9ED;
+    color:#ffffff;
+    border-top: solid 1px #1d6a9a;
+}
+
+.themeBgDark
+{
+    background:#1d6a9a;
+    border-top: solid 1px #2EB9ED;
+    color:#ffffff;   
+}
+
+.course_management_options
+{
+    border-top: solid 5px #2EB9ED;
+}
+
+span#moduleInformation
+{
+    background:url(../images/blue/icon_information_blue.png) 0 0 no-repeat;
+}
+
+span#moduleCommunication
+{
+    background:url(../images/blue/icon_communication_blue.png) 0 0 no-repeat;
+}
+
+span#moduleAssessments
+{
+    background:url(../images/blue/icon_assessments_blue.png) 0 0 no-repeat;
+}
+
+span#moduleTesting
+{
+    background:url(../images/blue/icon_testing_blue.png) 0 0 no-repeat;
+}
+
+span#moduleReports
+{
+    background:url(../images/blue/icon_reports_blue.png) 0 0 no-repeat;
+}

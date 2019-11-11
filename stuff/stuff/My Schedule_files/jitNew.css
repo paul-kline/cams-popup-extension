@@ -1,0 +1,2402 @@
+﻿/* Resets Here */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td
+{
+    font-family: Arial , Sans-Serif;
+    margin: 0;
+    padding: 0;
+}
+table
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset, img
+{
+    border: 0;
+}
+address, caption, cite, code, dfn, em, strong, th, var
+{
+    font-style: normal;
+    font-weight: normal;
+}
+ol, ul
+{
+    list-style: none;
+}
+caption, th
+{
+    text-align: left;
+}
+h1, h2, h3, h4, h5, h6
+{
+    font-size: 100%;
+    font-weight: normal;
+}
+q:before, q:after
+{
+    content: '';
+}
+abbr, acronym
+{
+    border: 0;
+}
+
+input 
+{
+    margin:.5em !important;
+}
+
+/* Existing Selectors */
+/* main page wrapper */
+html
+{
+    font-size: 16px;
+    text-align: left;
+}
+body
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: .9em;
+    
+}
+#doc3
+{
+    margin: 0 1em;
+    box-shadow: 0px 0px .5em rgba(0,0,0,.8);
+    -moz-box-shadow: 0px 0px .5em rgba(0,0,0,.8);
+    -webkit-box-shadow: 0px 0px .5em rgba(0,0,0,.8);
+}
+.yui-t3
+{
+}
+.yui-t3 .yui-b
+{
+    float: left;
+    width: auto;
+}
+
+
+/* common elements */
+a.currentSize 
+{
+    text-decoration:underline;
+}
+
+/* Yahoo! 'loading' widget */
+div#wait
+{
+    background:#333333;
+    border:solid #afafaf;
+    color:#ffffff;
+    box-shadow: 0px 0px .5em rgba(0,0,0,.8);
+    -moz-box-shadow: 0px 0px .5em rgba(0,0,0,.8);
+    -webkit-box-shadow: 0px 0px .5em rgba(0,0,0,.8);
+}
+#wait .hd
+{
+    color:#ffffff !important;
+    padding: 0 .5em;
+    font-size:1.2em;
+}
+
+a
+{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+a.active
+{
+    background: #FD9C4C url(../images/Right.gif) 7px 9px no-repeat !important; /* leave a space after image url and before positioning for ie7 */
+    color: #ffffff !important;
+    text-indent: 1.5em;
+    line-height: 1em;
+    border-top: solid 1px #ff8800;
+    border-bottom: solid 1px #ff8800 !important;
+    text-shadow:1px 1px 0px rgba(0, 0, 0, .5);
+    -webkit-text-shadow:1px 1px 0px rgba(0, 0, 0, .5);
+    -moz-text-shadow:1px 1px 0px rgba(0, 0, 0, .5);
+    -o-text-shadow:1px 1px 0px rgba(0, 0, 0, .5);
+}
+
+a.button
+{
+    padding: .5em;
+    display: inline-block;
+    background: #333333;
+    margin: .5em;
+    text-decoration: none;
+    border: solid 1px #333333;
+    color: white;
+    -moz-text-shadow: 0 1px #000000;
+    -webkit-text-shadow: 0 1px #000000;
+    text-shadow: 0 1px #000000;
+    font-size:1em;
+}
+a.button:hover
+{
+    background: #FD9C4C;
+    color: #ffffff;
+    border: solid 1px #ffffff;
+}
+
+h1, h2, h3
+{
+    font-weight: bold;
+}
+h1
+{
+    font-size: 1.5em;
+}
+h2
+{
+    font-size: 1.3em;
+}
+h3
+{
+    font-size: 1.1em;
+}
+
+/* Form Elements */
+.Portal_Form_Text_Normal
+{
+    width: 90%;
+    
+}
+
+
+/* building blocks */
+
+/* element positioning */
+.full
+{
+    width: 100%;
+}
+
+.half
+{
+    width:50%;
+}
+
+.third
+{
+    width:33%;
+}
+
+.floatLeft
+{
+    float: left;
+}
+.floatRight
+{
+    float: right;
+}
+
+.noClear
+{
+    clear:none;
+}
+
+.clearBoth
+{
+    clear:both;
+}
+
+.floatRight img /* used to align print icon */
+{
+    margin-top:-5px;
+}
+.pad
+{
+    padding: .5em;
+}
+
+/* text positioning */
+.top
+{
+    vertical-align: top;
+}
+.middle
+{
+    vertical-align: middle;
+}
+.bottom
+{
+    vertical-align: bottom;
+}
+.left
+{
+    text-align: left;
+}
+.right
+{
+    text-align: right;
+}
+.center
+{
+    text-align: center;
+}
+
+div.center 
+{
+    margin: 0 auto;    
+}
+
+.blueBg
+{
+}
+.orangeBg
+{
+}
+.whiteBg
+{
+}
+.grayBg1
+{
+}
+.grayBg2
+{
+}
+.grayBg3
+{
+}
+
+.noPad
+{
+    padding: 0 !important;
+}
+.horizPad
+{
+    padding: 0 .5em !important;
+}
+.vertPad
+{
+    padding: .5em 0 !important;
+}
+
+.finePrint
+{
+    font-size:.8em;
+    font-weight:normal;
+    font-style: italic;
+}
+
+.small
+{
+    font-size:.7em;    
+}
+
+/* widely used or general elements */
+.Portal_Form_Button
+{
+    padding: .5em;
+    font-size: 1em;
+}
+.Button_Row
+{
+}
+.Row
+{
+    display:block;
+    width:100%;
+    clear:both;
+}
+.divCollapsed
+{
+}
+.divCollapsed div
+{
+    display:none;
+}
+.divExpanded
+{
+    border: solid 1px #afafaf;
+    
+    margin: .5em;
+}
+.divExpanded div
+{
+}
+
+/* main page structure */
+
+/* header specific classes */
+#nav
+{
+    background-color: #EDF2FB;
+    color: inherit;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 230px;
+    font-size: .8em;
+}
+#hd
+{
+}
+.Portal_Container_Main
+{
+}
+.Portal_Container_TopMenu, .FPADM_Container_TopMenu
+{
+    clear: both;
+    padding: 0 .5em;
+    background: #E1E5E9;
+    border-top: solid 1px #999999;
+}
+.Portal_Container_ClientLogo
+{
+    /* background: url(../images/yourlogo.gif) 0 0 no-repeat; */
+    float: left;
+    height: 60px;
+    width: 223px; /*will change depending on the clients logo width*/
+}
+.Portal_Container_PortalLogo
+{
+    background-color: inherit;
+    background-image: url(../images/logo.gif);
+    background-position: right;
+    background-repeat: no-repeat;
+    color: inherit;
+    float: right;
+    height: 75px;
+    width: 300px;
+}
+.Portal_Container_TopMenu_Text, .FPADM_Container_TopMenu_Text
+{
+    line-height: 35px;
+}
+
+
+
+
+/* body specific classes */
+#bd
+{
+}
+#yui-main
+{
+}
+.yui-b
+{
+}
+/* used for menu on left - within yui-main*/
+.yui-g
+{
+    margin-left: 235px;
+}
+/* used for main content on right within yui-main */
+.Page_Logo
+{
+    padding: .5em;
+    background: #FD9C4C;
+    box-shadow: 0 0 0.6em rgba(0, 0, 0, 0.5);
+    margin-bottom: .5em;
+    border: solid 1px #ffffff;
+    text-shadow: 0px 1px 0px rgba(0,0,0,.7);
+    -moz-text-shadow: 0px 1px 0px rgba(0,0,0,.7);
+    -webkit-text-shadow: 0px 1px 0px rgba(0,0,0,.7);
+}
+.Portal_Cookie_Crumb
+{
+    padding: .5em;
+    background: #dfdfdf;
+    color: #666666;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 0px #ffffff;
+    -moz-text-shadow: 0px 1px 0px #ffffff;
+    -webkit-text-shadow: 0px 1px 0px #ffffff;
+}
+.Page_Content
+{
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: auto;
+    border-bottom: solid 1px #999999;
+    box-shadow: 0px 0px .6em rgba(0,0,0,.5);
+    -webkit-box-shadow: 0px 0px .6em rgba(0,0,0,.5);
+    -moz-box-shadow: 0px 0px .6em rgba(0,0,0,.5);
+    padding-bottom: 2em;
+}
+
+.yui-u
+{
+    width:auto;
+    width:30%;
+    float:right;
+}
+.yui-u.first
+{
+    width:auto;
+    max-width:70%;
+    float:left;
+}
+
+/* homepage styles */
+#myCourses
+{
+   
+    background: #798088  url(../images/icon_window.png) .5em .5em no-repeat;
+    text-indent: 18%;
+    height:30px;
+    line-height:30px;
+}
+
+#myCalendar
+{
+    
+    background: #798088  url(../images/icon_calendar.png) .5em .5em no-repeat;
+    text-indent: 18%;
+    height:30px;
+    line-height:30px;
+}
+
+.dateColumn a
+{margin-left:.5em;}
+
+/* General Table Styling */
+table
+{
+    width: 100%;
+    font-size: .8em;
+    color: #666666;
+}
+caption, .caption
+{
+    
+    padding: .5em;
+    background: #333333;
+    color: #ffffff;
+    -moz-text-shadow: 0 1px #000000;
+    -webkit-text-shadow: 0 1px #000000;
+    text-shadow: 0 1px #000000;
+}
+
+/* firefox specific style rule */
+@-moz-document url-prefix() {
+    caption.homeOnly{
+        min-height:47px;
+    }
+    .course_management_options
+    {min-height:195px !important;}
+}
+
+
+
+.caption
+{
+    width: 100%;
+}
+thead, tr > th
+{
+    /* background:#71859E; color used in mobility version */
+    background: #798088;
+    color: #ffffff;
+    text-align: center;
+    border-top: solid 1px #ffffff;
+    border-bottom: solid 1px #666666;
+    text-shadow: 0 1px #000000;
+    -moz-text-shadow: 0 1px #000000;
+    -webkit-text-shadow: 0 1px #000000;
+}
+
+thead > tr
+{
+    background:none !important; 
+}
+
+thead > tr > td
+{
+    padding:.5em;
+    border-right:solid 1px #ffffff;
+}
+
+th
+{
+    border-right: solid 1px #ffffff;
+    text-align: center;
+}
+
+thead tr:last-child
+{
+    border-right: 0;
+}
+
+th, td
+{
+    padding: .5em;
+}
+tr
+{
+    border-bottom: solid 1px #afafaf;
+}
+
+tr.row
+{
+    background: #ffffff;
+    color: #666666;
+    border-top: solid 1px #afafaf;
+    border-bottom: solid 1px #afafaf;
+}
+
+
+
+tbody
+{
+}
+
+
+
+/* Portal Table Styling */
+.Portal_Group_Table
+{
+    font-size: .9em;
+    color: #666666;
+}
+.Portal_Table_Caption
+{
+}
+.Portal_Table_Sub_Caption
+{
+   
+    background: #2B446C;
+    padding:.5em;
+    color:#ffffff;
+}
+.Portal_Group_SubHeader1
+{
+    background:#efefef;
+    color:#333333;
+    border-top:solid 1px #afafaf;
+    border-bottom: solid 1px #dfdfdf;
+}
+.Portal_Group_SubHeader1_Center
+{
+}
+.Portal_Group_SubHeader2
+{
+}
+.Portal_Group_SubHeader2_Center
+{
+}
+tr.row
+{
+}
+tr.altRow
+{
+    background: #E1E5E9;
+}
+.Portal_Message_Blue
+{
+    padding: .5em;
+    
+    background: #2b446c;
+    color: #ffffff;
+    text-align:center;
+}
+
+.Portal_Message_Red
+{
+    padding:.5em;
+    border: solid 1px #ffffff;
+    background:#ff0000;
+    color:#ffffff;
+    text-align:center;
+}
+.Portal_Information_Message
+{
+    color:#ff0000;
+}
+.course_management_coursename
+{
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffffff;
+    
+}
+.Portal_Grid_Pager
+{
+    text-align: center;
+    padding: .5em;
+    background: #efefef;
+    font-size:1em;
+    float:left;
+    width:100%;
+    clear:both;
+}
+span.Portal_Grid_Pager_Selected
+{
+    background: #FD9C4C;
+    margin: .3em;
+    color: #ffffff;
+    border: solid 1px #ffffff;
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
+    text-decoration: none;
+    -moz-box-shadow: 0px 0px 3px rgba(0,0,0,.8);
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.8);
+    box-shadow: 0px 0px 3px rgba(0,0,0,.8);
+}
+
+.Portal_Grid_Pager span a
+{
+}
+span.Portal_Grid_Pager_Pipe
+{
+    display: none;
+}
+.Portal_Grid_Pager a
+{
+    background: #333333;
+    margin: .2em;
+    color: #ffffff;
+    border: solid 1px #ffffff;
+    display: inline-block;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
+}
+
+.Portal_Grid_Pager a:hover
+{
+    background: #FD9C4C;
+    text-decoration: none;
+    -moz-box-shadow: 0px 0px 3px rgba(0,0,0,.8);
+    -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.8);
+    box-shadow: 0px 0px 3px rgba(0,0,0,.8);
+}
+
+#Profile
+{
+    margin-top: -35px;
+    font-size: x-small;
+    padding: .5em;
+    width: 220px;
+    background: #E1E5E9;
+    border-bottom: solid 1px #ffffff;
+}
+#UserName, #ChangeTerm
+{
+}
+#UserName
+{
+    font-size: 2em;
+    font-weight: bold;
+}
+#ChangeTerm
+{
+    font-size: 1.2em;
+}
+#ProfileFunctions
+{
+    margin: 1em 0;
+}
+
+#ProfileFunctions a.button
+{
+    margin:2px .5em;
+    display:inline-block;
+    min-width:86px;
+    text-align:center;
+}
+
+#themeChanger
+{
+    float:left;
+    clear:both;
+    padding: 0 .5em; 
+}
+
+#themeChanger a
+{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+#themeChanger img
+{
+    display: inline-block;
+    margin-right: .5em;
+    cursor: pointer;
+}
+
+#fontSizer
+{
+   display:inline-block;
+   margin-left:1em;
+   padding: 0 .5em;
+}
+
+#fontSizer a
+{
+    margin: 0 .5em;
+    
+}
+
+#smallFont
+{font-size:12px;}
+#normalFont
+{font-size:16px;}
+#largeFont
+{font-size:20px;}
+
+#LeftSide
+{
+    background: transparent url(../images/poweredBycams.gif) 0 0 no-repeat;
+    display: block;
+    height: 75px;
+    width: 230px;
+}
+.Portal_Container_LeftSideLogo
+{
+}
+/* logo below menu on left */
+
+
+/* menu styling */
+#nav
+{
+}
+#nav li
+{
+}
+#nav li a
+{
+    display: block;
+    padding: .75em;
+    background: #efefef;
+    border-bottom: solid 1px #afafaf;
+    text-decoration: none;
+}
+#nav li a:hover
+{
+    background: #E1E5E9;
+    color: #666666;
+    text-decoration: none;
+}
+#nav li h1
+{
+    background: #798088;
+    color: #ffffff;
+    height: 30px;
+    line-height: 30px;
+    padding: .5em;
+    border-top: solid 5px #fd9c4c;
+    border-bottom: solid 1px #666666;
+    font-size: 1em;
+    font-weight: normal;
+    -moz-text-shadow: 0 1px #000000;
+    -webkit-text-shadow: 0 1px #000000;
+    text-shadow: 0 1px #000000;
+}
+#nav li h1.open
+{
+    background: #798088 url(../images/icon_minus.png) 96% 50% no-repeat;
+    cursor: pointer;
+}
+#nav li h1.closed
+{
+    background: #798088 url(../images/icon_plus.png) 96% 50% no-repeat;
+    cursor: pointer;
+}
+#nav li li
+{
+}
+#nav li ul li a
+{
+}
+
+/* menu section id's */
+#nav a#index
+{
+}
+#nav a#stuCalendar
+{
+}
+#nav a#spDirectory
+{
+}
+#nav a#spDocTrack
+{
+}
+#nav a#spCourseOffer
+{
+}
+#nav a#spDegreeAudit
+{
+}
+#nav a#spregunoffreg
+{
+}
+#nav a#spSchedule
+{
+}
+#nav a#spBillingLedger
+{
+}
+#nav a#spFinancialAid
+{
+}
+#nav a#spHousing
+{
+}
+#nav a#spGradesMidTerm
+{
+}
+#nav a#spNumberGradeRpt
+{
+}
+#nav a#spTranscript
+{
+}
+/* this id is used twice in the menu - should change to class */
+#nav a#spMyCourses
+{
+}
+
+
+
+/* footer classes */
+
+#ft
+{
+}
+.Portal_Container_Bottom
+{
+    padding: .5em;
+    background-color: #afafaf;
+    text-align: center;
+    border-top: solid 1px #666666;
+    border-bottom: solid 1px #666666;
+    color:#ffffff;
+}
+
+
+/* Page Specific Classes Below */
+
+/* cePortalPerInfo */
+fieldset#profileLinks .Portal_Form_Button
+{
+    float:right;
+}
+#loginForm
+{
+  max-width:500px;
+  margin: 1em auto;
+  box-shadow: 0px 0px .5em rgba(0,0,0,.5);
+  -webkit-box-shadow: 0px 0px .5em rgba(0,0,0,.5);
+  -moz-box-shadow: 0px 0px .5em rgba(0,0,0,.5);  
+}
+
+#loginForm label
+{
+    float:left;
+    clear:both;
+    line-height:32px;
+    text-align:right;
+    width:140px;
+}
+
+#loginForm input[type="text"],#loginForm input[type="password"], #loginForm select
+{
+    max-width:317px;
+    float:right;
+}
+
+#loginForm select
+{
+    padding:0;
+}
+
+#loginForm .Portal_Message_Required
+{
+    text-align:center;
+    font-style:italic;
+}
+
+#btnLogin
+{
+    font-size:1.2em;
+}
+
+select#idterm
+{
+    max-width:324px;
+    float:left;
+    margin-left:1em;
+    margin-top:.5em;
+}
+
+/* Calendar.asp */
+.Portal_Calendar
+{
+    width: 100%;
+}
+.Portal_Calendar_Title
+{
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    background: #afafaf;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.Portal_Calendar td
+{
+    padding: 0;
+}
+.Portal_Calendar_Day_Title
+{
+    text-align: center;
+    padding: .5em;
+    background: #798088;
+    color: #ffffff;
+    border-bottom: solid 1px #ffffff;
+    border-top: solid 1px #ffffff;
+}
+.Portal_Calendar_OtherMonth_Day
+{
+    background-color: #EFEFEF;
+    border-left: solid 1px #dfdfdf;
+    border-right: solid 1px #dfdfdf;
+}
+td.Portal_Calendar_Day
+{
+    width: 14%;
+    height: 114px;
+    border: solid 1px;
+    font-size: .7em;
+    padding: .5em !important;
+    vertical-align: top;
+    background: #E1E5E9;
+    border-color: #ffffff #cfcfcf #ffffff #cfcfcf;
+    color:#000000;
+}
+
+td.Portal_Calendar_Day:hover
+{
+    background: #efefef;
+    transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+}
+.Portal_Calendar_Day a, .Portal_Calendar_Day_Today a
+{
+    display: block;
+    width: 20%;
+    padding: .5em;
+    background: #ffffff;
+    border: solid 1px #afafaf;
+    margin-bottom:.5em;
+    text-align:center;
+    text-transform: uppercase;
+    
+}
+.Portal_Calendar_Day_Today a
+{
+    color: #333333;
+    font-weight: bold;
+}
+
+a.Portal_Calendar_Day_Link
+{
+    margin: .5em;
+    font-size: 1.2em;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-decoration: underline;
+}
+
+.Portal_Calendar_Day_Today
+{
+    background-color: #dfdfdf;
+    width: 14%;
+    height: 100px;
+    border: solid 2px #fd9c4c;
+    font-size: .7em;
+    padding: .5em;
+    vertical-align: top;
+}
+
+.dateDisplay
+{
+    font-size:1.2em;
+}
+/* new class added to last row of table */
+tr.controlsRow
+{
+    
+    border-bottom: solid 1px #666666;
+}
+tr.controlsRow #Select1, tr.controlsRow input
+{
+    margin: 0 .5em;
+}
+tr.controlsRow input.Portal_Form_Button
+{
+    display: inline-block !important;
+    width: auto;
+    padding: .5em;
+    float: right;
+}
+
+tr.controlsRow td
+{
+    padding: 0;
+}
+
+/* cePortalDirectory.asp */
+form#directory
+{
+}
+span.currentlyViewing
+{
+    font-style: italic;
+    display: block;
+}
+
+
+/* cePortalJobSearch */
+div.Form_Container
+{
+    padding: .5em;
+}
+
+div.Form_Container.headerOnly
+{
+    background: #798088;
+    color: #ffffff;
+    border-top: solid 1px #ffffff;
+    border-bottom: solid 1px #ffffff;
+    min-height:15px;
+    max-height:35px;
+}
+div.Form_Container form fieldset
+{
+    padding: .5em;
+    background: #efefef;
+    border: solid 1px #dfdfdf;
+}
+
+/*div.Form_Container form fieldset:hover
+{
+    box-shadow:0px 0px .9em rgba(0,0,0,.5);
+    -webkit-box-shadow:0px 0px .9em rgba(0,0,0,.5);
+    -moz-box-shadow:0px 0px .9em rgba(0,0,0,.5);
+    border: solid 1px #666666;
+    background:#fafafa;
+}*/
+div.Form_Container form legend, .twoColForm legend
+{
+    background:#afafaf;
+    color:#ffffff;
+    padding: .5em;
+    border: solid 1px #ffffff;
+    font-weight: bold;
+    text-shadow:0px 1px 0px rgba(0, 0, 0, .7);
+}
+
+
+.Row div.half {width:49%;}
+.Row div.third {width: 32%;}
+.Row div.quarter {width:24%;}
+
+.Row .left {float:left;}
+.Row .right {float:right;}
+
+div.Form_Container form fieldset div.Row
+{
+}
+div.Form_Container div.Button_Row
+{
+}
+.Portal_Form_Text_Small
+{
+}
+
+/* cePortalOffering.asp */
+
+.Portal_Content
+{
+}
+
+/* cePortalStudentDocTracking */
+#documentTracking
+{
+}
+
+
+
+/* entirely new classes and rules */
+
+#nav h1 span /* used in main menu headers */
+{
+    display: block;
+    float: left;
+    margin-right: .5em;
+}
+
+.pageOptions /* used in cePortalDocTracking.asp */
+{
+    padding: 0 !important;
+    background: #dfdfdf;
+    width:100%;
+}
+
+.multi
+{background: none;
+ width:100%;
+ float:left;
+ clear:both;
+}
+
+.pageOptions.multi p
+{display:inline-block;float:left;clear:none;margin: 0 .5em;padding:.5em;}
+
+.pageOptions.multi p span
+{font-size:.8em;}
+
+/* added to saudit.asp */
+.detailsLink
+{
+    text-transform: uppercase;
+    border: solid 1px #ffffff;
+    background: #afafaf;
+    color: #ffffff !important;
+    padding: 0 .5em;
+}
+
+/* added to daudit.asp & a number of other page subsequently */
+.dauditSummary td p, .reqGroup td p, .courseLegend td p, .unitsRemaining td p, .groupRemaining p, .groupRequirements p
+{
+    display: inline-block;
+    border-right: solid 1px #999999;
+    margin-right: .5em;
+    padding-right: .5em;
+    font-weight: bold;
+}
+
+.dauditSummary td p span, .reqGroup td p span, .courseLegend td p span, .unitsRemaining td p span, .groupRemaining p span, .groupRequirements p span
+{
+    display: inline;
+    margin-right: .5em;
+    font-weight: normal;
+}
+
+.reqGroup tr.headerRow
+{
+    background: #999999;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.courseLegend p
+{
+    font-size: .8em;
+}
+
+.groupRemaining
+{
+    padding: .5em;
+    font-size: 1.2em;
+    color: #ffffff;
+    background: #666666;
+}
+
+.unitsRemaining
+{
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+
+/* added to cePortalDegreeInfo.asp */
+.selectRevTerm
+{
+    padding: .5em;
+    background: #798088;
+    color: #ffffff;
+}
+
+/* added to cePortalChgTerm */
+#termSelectContainer
+{
+    text-align: center;
+    padding: 1em;
+}
+
+/* added to cePortalJobSearch.asp */
+.jobSearch
+{
+}
+.jobSearch div
+{
+    display: inline-block;
+    padding: 0 1em;
+}
+
+.jobListing
+{
+    border-bottom:solid 1px #afafaf;
+    background:#efefef;
+    margin: .5em;
+    border-left:solid 5px #afafaf;
+    border-right:solid 1px #afafaf;
+}
+.jobListing.even
+{
+    background:#dfdfdf;
+}
+
+.jobListing fieldset
+{
+    padding: .5em;
+}
+
+.jobListing legend
+{
+    font-size: 1.5em;
+    color:#666666;
+    font-style:italic;
+}
+
+.jobListing div
+{
+    padding: 0 .5em;
+}
+
+.jobListing a.button
+{
+    font-size:.8em;
+}
+
+/* billing.asp */
+
+#Table12
+{
+    width: 50%;
+    float: right;
+    margin: 1em;
+    border: solid 1px #afafaf;
+    color: #333333;
+}
+
+#Table12 tr
+{
+    text-align: right;
+}
+
+#Table12 td
+{
+    width: 20%;
+}
+
+
+#PFALegend input, #PHCLegend input
+{
+    padding: .5em;
+    margin: .5em;
+}
+
+.highliteCell
+{
+    background: #666666;
+    color: #ffffff;
+    -moz-text-shadow: 0 1px #000000;
+    -webkit-text-shadow: 0 1px #000000;
+    text-shadow: 0 1px #000000;
+}
+
+/* cePortalOffering.asp */
+tr.courseInfo
+{
+    background: #dfdfdf;
+    color: #333333;
+    border-bottom: solid 1px #afafaf;
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+tr.courseInfo.altRow
+{
+    background: #efefef;
+}
+
+td.courseName
+{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+tr.courseInfo td.Portal_Group_SubHeader2 input
+{
+    padding: .2em;
+    margin: .1em;
+}
+
+tr.headerRow
+{
+    background: #afafaf;
+    color: #ffffff;
+}
+
+
+.blankCell
+{
+    display: none;
+    background: none;
+    border: 0;
+}
+
+a#Next10, a#bNext10, .Next10
+{
+    width: 40px !important;
+}
+
+a#Prev10, a#bPrev10
+{
+    width: 80px;
+}
+
+.Portal_Group_Table.nested
+{
+    text-align: right;
+    width: 95%;
+    float: right;
+    border-left: solid 1px #afafaf;
+}
+
+.Portal_Group_Table.nested th
+{
+    text-align: right;
+}
+
+.Portal_Group_Table.nested tr
+{
+}
+
+.Portal_Group_Table.nested td
+{
+}
+
+/* prospectdegreesdetail.asp */
+fieldset div.groupRemaining
+{
+    text-transform: uppercase;
+}
+
+.groupRequirements p
+{
+    padding: .5em;
+}
+
+/* cePortalGradeReport.asp */
+.infoWarning
+{
+    text-align: center;
+}
+
+/* cePortalAcademicList (Registration Main) NOTE:  'Collapsed' was originally mispelled everywhere, replaced with correct spelling in all instances */
+.Portal_Content_Actions
+{
+	padding:.5em;
+	color:#333333;
+}
+
+fieldset.divCollapsed
+{
+    float:left;
+    clear:none;
+}
+
+fieldset.divExpanded
+{
+    float:left;
+    min-width:96%;
+    max-width: 98%;
+    clear:both;
+}
+
+#filterCourses
+{
+    padding:.5em;
+}
+
+#filterCourses label 
+{
+    margin:.5em 0;
+    display:inline-block;
+}
+
+
+#filterCourses .Button_Row
+{
+    float:left;
+    clear:both;
+    width:100%;
+}
+
+#daysTimesFilter table
+{
+    text-align:center;
+}
+
+.themeBg, .themeBgDark
+{
+    background:#798088;
+    color:#ffffff;
+    padding:.5em;
+    text-shadow: 0 1px #000000;
+    -moz-text-shadow: 0 1px #000000;
+    -webkit-text-shadow: 0 1px #000000;
+    -o-text-shadow: 0 1px #000000;
+}
+
+#pendingBlock .Portal_Group_Table.courseInfo tr
+{
+  text-align:center;
+
+}
+
+#offeringBlock .Portal_Group_Table.courseInfo tr
+{
+   
+}
+
+#offeringBlock p.courseName
+{
+    font-size:1.2em;
+    font-weight:bold;
+    color:#333333;
+    text-align:center;
+}
+
+.pageNumbers a 
+{
+    font-size:1.2em;
+}
+
+.Portal_Group_Table.courseInfo table
+{
+    float:right;
+    width:90%;
+    text-align:center;
+}
+
+.Portal_Group_Table.courseInfo .divExpanded
+{
+    border:0;
+}
+
+.Portal_Group_Table.courseInfo .divExpanded table
+{
+    width:99%;
+}
+
+.Portal_Group_Table.courseInfo .divExpanded table caption
+{
+    font-size:1.2em;
+    background:#2B446C
+}
+
+span.seatsLeft 
+{
+    color:#ff0000;
+    display:block;
+    padding:.5em;
+    font-weight:normal;
+    font-size:.9em;
+}
+
+input.booklistButton
+{
+    float:left;
+    clear:both;
+}
+
+.startEndDates 
+{
+    text-align:center;
+    color:#333333;
+    text-transform: uppercase;
+}
+
+.Portal_Group_Table.courseInfo span.Portal_Information_Message
+{
+    display:block;
+    text-align:center; 
+}
+
+p.Form_Container.headerOnly
+{
+    background:#afafaf;
+    color:#333333;
+    padding:.2em;
+}
+
+p.campusChecks
+{
+   display:inline-block;
+}
+
+.timeFilter
+{
+    padding:.5em;
+    display:block;
+    float:left;
+}
+
+.timeFilterButtons
+{
+    float:left;
+    clear:both;
+}
+
+.activeFilter
+{
+    float:left;
+}
+
+.registrationActions
+{
+    display:block;
+    min-height:35px;
+    background:#afafaf;
+    border-bottom: solid 1px #888888;
+}
+
+#btnGoBack, #btnBottomGoBack, #btnCancelRegistration
+{
+    background:red;
+    color:#ffffff;
+    text-shadow:1px 1px #000000;
+}
+
+#btnRegister, #btnBottomRegister, #btnSaveRegistration
+{
+    background:green;
+    color:#ffffff;
+    text-shadow: 1px 1px #000000;
+}
+
+/* cePortalTranscript.asp */
+.Portal_Student_Transcript_GPAGrouping
+{
+    padding:.5em;
+    text-align:center;
+    background:#afafaf;
+    border-top:solid 1px #ffffff;
+    border-bottom:solid 1px #ffffff;
+}
+
+.Portal_Student_Transcript_Summary_Header
+{
+    background:#666666;
+    text-align:right;
+    color:#ffffff;
+}
+
+.Portal_Student_Transcript_Summary_Item
+{
+    text-align:right;
+}
+
+.Portal_Student_Transcript_Term
+{
+    padding:.5em;
+    background:#333333;
+    color:#ffffff;
+    text-align:center;
+}
+
+/* cmSPCourseManagementOptions */
+.course_management_options h1 span
+{
+    display:inline-block;
+    height:30px;
+    width:30px;
+    margin-right:.5em;
+    line-height:1.5em;
+}
+
+span#moduleInformation
+{
+    background:url(../images/icon_information.png) 0 0 no-repeat;
+}
+
+span#moduleCommunication
+{
+    background:url(../images/icon_communication.png) 0 0 no-repeat;
+}
+
+span#moduleAssessments
+{
+    background:url(../images/icon_assessments.png) 0 0 no-repeat;
+}
+
+span#moduleTesting
+{
+    background:url(../images/icon_testing.png) 0 0 no-repeat;
+}
+
+span#moduleReports
+{
+    background:url(../images/icon_reports.png) 0 0 no-repeat;
+}
+
+.moduleContainer
+{
+   display:block;
+   width:100%; 
+}
+
+.course_management_options
+{
+    display:block;
+    float:left;
+    margin:.5em;
+    padding:.5em;
+    width:44%;
+    background:#efefef url(../images/furley_bg.png) 0 0 repeat;
+    border:solid 1px #afafaf;
+    min-height: 225px;
+}
+
+.course_management_options:hover
+{
+    box-shadow: 0px 0px .8em rgba(0,0,0,.7);
+    -webkit-box-shadow: 0px 0px .8em rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 0px .8em rgba(0,0,0,.7);
+    -o-box-shadow: 0px 0px .8em rgba(0,0,0,.7);
+}
+
+.course_management_options h1
+{
+    font-size:1.2em;
+    color:#666666;
+}
+
+.course_management_links li
+{
+  display:block;
+  background: url(../images/Right.gif) 0 2px no-repeat;
+  padding-left:1em; 
+  margin:.5em; 
+}
+
+.course_management_links li a
+{
+    display:block;
+    
+}
+
+.courseDescription
+{
+  text-align:justify;
+  line-height:1.2em;  
+}
+
+/* cmCourseAnnouncements */
+.Portal_cmGroup_Header
+{
+    padding:.5em;
+    font-size:1.2em;
+    background:#dfdfdf;
+    border-top:solid 1px #333333;
+    border-bottom: solid 1px #666666;
+    color:#333333;  
+}
+
+.Portal_cmGroup_Header span
+{
+    color:#666666;
+}
+
+.Portal_cmGroup_Body
+{
+    margin:1em;
+    color:#666666;
+}
+
+/* cmSPSendEmail */
+.emailLink
+{
+    display:block;
+    padding:.5em;
+    background:#798088 url(../images/icon_email.png) .5em 0 no-repeat;
+    text-indent: 2.5em;
+    color:#ffffff !important;
+    text-decoration:underline;
+    margin:.5em;
+}
+
+.emailLink:hover
+{
+    background:#afafaf url(../images/icon_email.png) .5em 0 no-repeat;
+    color:#333333 !important; 
+}
+
+/* News Items */
+.news_wrapper
+{
+  text-decoration:none;
+  color:#000;
+  background:#ffc;
+  display:block;
+  width:90%;
+  padding:1em;
+  margin: auto;
+  border: 10px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 -5px 10px 0px rgba(0,0,0,0.3);
+
+     
+}
+
+.news_wrapper h2
+{
+    background: #eeeeee; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VlZWVlZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top,  #eeeeee 0%, #ffffff 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #eeeeee 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #eeeeee 0%,#ffffff 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #eeeeee 0%,#ffffff 100%); /* IE10+ */
+    background: linear-gradient(top,  #eeeeee 0%,#ffffff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#ffffff',GradientType=0 ); /* IE6-8 */
+    -moz-border-radius: .5em;
+    -webkit-border-radius: .5em;
+    border-radius: .5em;
+    color:#666666;
+    padding:.5em;
+    -moz-box-shadow: inset 0 0 5px #888;
+    -webkit-box-shadow: inset 0 0 5px#888;
+    box-shadow: inner 0 0 4px #888;
+}
+
+.news_wrapper h2 span.st_twitter_hcount
+{
+    float:right;    
+}
+
+.news_wrapper a.button
+{
+    float:left;
+    clear:both;
+}
+
+.news_time
+{
+
+}
+
+.campusAlert
+{
+    
+}
+
+#menuHiddenMessage {display:none;}
+
+/*  media queries below (only apply to modern browsers) */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (max-width: 768px)
+{
+    #mainBody {margin-left:0;}
+    #leftSideBar {display:none;}
+    .course_management_options{width:46%;margin:.2em;}
+    #menuHiddenMessage {display:block;text-align:center;background:#fff200;color:#333333;padding:.5em;font-weight:bold;font-size:1em;border-top:solid 2px #ffff00;text-shadow:none;}
+}
+
+/* styles for Application Portal Below */
+#loginForm input[type="text"], #loginForm select
+{
+    max-width:319px;
+    float:right;
+}
+
+/* application.asp */
+
+#applicantInformation
+{
+
+}
+
+#applicantDemographics
+{
+
+}
+
+#applicantResidency
+{
+
+}
+
+#applicantHomeAddress
+{
+
+}
+
+#applicantLocalAddress
+{
+
+}
+
+form#application fieldset
+{
+    margin-bottom:1em;
+}
+
+#PreviousButton, #saveButton, #cancelButton, #Button1, #Button2,#Submit2
+{
+    font-size:1.2em;
+}
+
+form#application fieldset div.Row
+{
+    margin:.5em;
+    padding:.5em;
+    border-bottom: dashed 1px #666666;
+    display:block;
+    float:left;
+    width:95%;
+}
+
+form#application fieldset div.Row label
+{
+    float:left;
+    clear:both;
+    font-size:1.1em;
+    margin-right:1em;
+    padding: .5em 0;
+    line-height:.2em;
+    font-weight:bold;
+    color:#555555;
+    text-shadow: 1px 1px 0 #ffffff;
+}
+
+form#application em
+{
+    color:#ff0000;
+}
+
+form#application fieldset div.Row input[type="text"]
+{
+    float:left;
+    width:50%;
+    clear:both;
+    margin: .5em 0 !important;
+    
+}
+
+form#application span
+{
+    float:left;
+    line-height:1.6em;
+    display:block;
+    
+}
+
+form#application input[type="radio"]
+{
+    width:3% !important;
+    float:left;
+    clear:both;
+}
+
+form#application fieldset div.Row select
+{
+    float:left;
+    clear:both;
+}
+
+form#application select span
+{
+    float:left;
+    clear:both;
+}
+
+form#application .Portal_Message_Required
+{
+    text-align:center;
+    font-style:italic;
+    color:#ff0000;
+}
+
+/* submit.asp */
+td.Portal_Form_Label
+{
+    font-size:1.2em;
+    color:#000000;
+    text-align:right;
+    width:33%;
+    font-style:italic;
+}
+
+#submitReview
+{
+
+}
+
+#submitReview input[type="text"]
+{
+    border:0;
+    background:transparent;
+    font-weight:bold;
+    width:50%;
+       
+}
+
+#submitReview caption a
+{font-size:1em;}
+
+#submitReview caption
+{
+    font-weight:bold;
+    background:#798088;
+    border:solid 1px #ffffff;
+}
+
+#submitReview td.Portal_Group_SubHeader1
+{
+    color:#ffffff;
+    font-weight:bold;
+    padding:0;
+    background:#798088;
+    border:solid 1px #ffffff;
+    
+}
+
+#submitReview .complete img, #submitReview .incomplete img
+{
+    width:30px;
+    height:30px;
+    margin:0;
+    padding-right:.5em;
+    float:left;
+}
+
+#submitReview .complete p, #submitReview .incomplete p
+{
+    display:inline;
+}
+
+#submitReview .complete
+{
+    background:green;
+    color:#ffffff;
+    display:block;
+    height:30px;
+    line-height:30px;
+    vertical-align:top;
+    border-top:solid 1px #ffffff;
+    border-bottom: solid 1px #ffffff;
+}
+
+#submitReview .incomplete
+{
+    background: red;
+    color:#ffffff;
+    vertical-align:top;
+    display:block;
+    height:30px;
+    line-height:30px;
+    vertical-align:top;
+    border-top:solid 1px #ffffff;
+    border-bottom: solid 1px #ffffff;
+    
+}
+
+
+#educationList
+{
+    background:#ffffff;    
+}
+
+#educationList .Portal_Group_SubHeader1
+{
+    font-size:1.2em;
+    color:#000000;
+    font-weight:bold;    
+}
+
+.addParents 
+{
+    display:block;
+    height:30px;
+    line-height:30px;
+}
+
+#theForm .Button_Row
+{
+    margin: .5em;
+    display: block;
+    float: left;
+    clear: both;
+}
+
+.addParents a
+{
+    vertical-align:top;
+}
+
+#applicationQuestions th
+{
+    text-align:left;
+    padding:.5em;
+    margin:0;
+}
+
+#applicationQuestions th a
+{
+    float:left;
+}
+
+#applicationQuestions a.button
+{
+    margin:0;
+}
+
+/* alumni portal specific styles below */
+.headerRowFix
+{
+    background:none !important;
+    color:#ffffff !important;
+}
+#donationByMail
+{
+    width:80%;
+    padding:.5em;
+    margin:1em auto;
+    border:solid 1px #afafaf;
+    background:#efefef url(../images/image_airMail.png) 0 0 no-repeat;
+}
+#donationByMail div 
+{
+    margin-left:260px;
+    color:#333333;
+}
+
+#donationByMail h1
+{
+    color:#666666;
+}
+#donationByMail div address
+{
+    padding: 1em 0;
+    color:#333333;
+}
+
+/* donate online */
+#giftdonation
+{
+}
+#giftdonation table td.fixWidth
+{
+    text-align:right;
+    width:130px;
+}
+#giftdonation table tr
+{
+    background:#efefef;
+    border-bottom:solid 1px #ffffff;
+}
+#giftdonation table tr.altRow
+{
+    background:#E1E5E9;
+}
+#giftdonation table label
+{
+    font-size:1.2em;
+}
+/* verisign.asp */
+#Form2
+{
+
+}
+#Form2 table
+{
+}
+#Form2 table td.fixWidth
+{
+ text-align:right;
+ width:265px;
+ font-size:1.2em;
+ color:#000000;
+}
+
+/* Faculty Portal Styles Below */
+p.Portal_Legend
+{
+    padding:.5em;
+    text-align:center;
+    font-size: small;
+    background:#afafaf;
+    color:#ffffff;
+    border-top:solid 1px #666666;
+    border-bottom:solid 1px #ffffff;
+}
+
+.Form_Container.headerOnly label
+{
+    line-height:2em;
+}
+
+.rosterOptions p
+{
+    display:block;
+    float:left;
+    clear:none;
+    height: 45px;
+    line-height: 45px;
+    padding-left: .5em;
+}
+
+.studentNotes
+{
+    
+}
+
+.studentNotes p
+{
+    padding:.5em;
+    font-weight:bold;
+}
+
+.studentNotes p span
+{
+    display:inline-block;
+    min-width:115px;
+    font-weight:normal;
+}
+
+.course_management_options.faculty
+{
+    min-height:395px;
+}
+
+.FPADM_Container_PortalLogo
+{
+    background-image:url(../images/fpadm_logo.png);
+    background-position: right;
+    background-repeat:no-repeat;
+    float:right;
+    height:75px;
+    width:300px;
+}
+
+.course_management_links img
+{width:100%;max-width:300px;text-align:center;}
+
+.singleListing
+{
+    padding:.5em;
+    background:#efefef;
+    border:solid 1px #afafaf;
+    margin-bottom:.5em;
+    float:left;
+    clear:both;
+    width:98%;
+    border-left:solid 5px #afafaf;
+}
+
+.singleListing h2
+{
+    color:#666666;
+    margin-bottom:.5em;
+}
+
+.twoColForm
+{
+    width:100%;
+    float:left;
+    clear:both;
+    padding:0;
+    margin:0;    
+}
+
+fieldset#twoColForm, fieldset.twoColForm
+{
+    padding: .5em;
+    margin:.5em;
+    background:#efefef;
+    border:solid 1px #dfdfdf;
+}
+
+#twoColForm div, .twoColForm div
+{
+    float:left;
+    clear:both;
+}
+
+#twoColForm div label, .twoColForm div label
+{
+    width:30%;
+    float:left;
+    text-align:right;
+    margin:.5em;
+    
+}
+
+#twoColForm div input, #twoColForm div select, #twoColForm div textarea, .twoColForm div input, .twoColForm div select, .twoColForm div textarea
+{
+    
+    float:left;
+    font-size:1em;
+}
+
+#twoColForm div select, #twoColForm div textarea, #twoColForm div p, .twoColForm div select, .twoColForm div textarea, .twoColForm div p
+{
+    margin: .5em;
+}
+
+#twoColForm div input, #twoColForm div select, #twoColForm div textarea, .twoColForm div input, .twoColForm div select, .twoColForm div textarea
+{
+    width:65%;
+}
+
+#twoColForm div input[type="button"], .twoColForm div input[type="button"]
+
+{
+    font-size:1.2em;
+    width: 35%;
+    
+}
+
+.twoButtonRow
+{
+    text-align: center;   
+}
+
+.twoButtonRow input[type="button"], .twoButtonRow input[type="submit"]
+{
+    width: auto !important;
+    float:none !important;
+    font-size:1em !important;  
+}
+
+.fourCol label, .fourCol input[type="text"]
+{
+    width: auto !important;
+}
+
+/* Table Formula For 2-Column Center Justified */
+table.centerJustify tr td:first-child
+{
+    text-align:right;
+    width:50%;
+}
+table.centerJustify tr td:last-child select
+{
+    margin:0 6.5px;
+    width:auto;
+}
+
+
+/* JQUI OVERRIDES */
+/* THEME BLUE #2EB9ED  */
+.ui-widget-overlay.ui-front
+{
+    background-color:rgba(0,0,0,.1);
+}
+
+.ui-dialog.ui-widget-content
+{
+    border-color:#bdbdbd;
+    border-radius:0;
+    box-shadow:0 0 .5em rgba(0,0,0,.2);
+    background-color:#fff;
+}
+
+.ui-dialog-titlebar.ui-widget-header
+{
+    border:0;
+    color:#fff;
+    border-radius:0;
+}
+
+.ui-dialog-content.ui-widget-content
+{
+    border:0;
+    background-color:#fff;
+}
+
+.ui-dialog-titlebar-close
+{
+    overflow:hidden;    
+}
+
+button.ui-button.ui-state-default
+{
+    text-shadow:none;
+    border-radius:0;
+    color:#fff;
+    border:solid 1px #fff;   
+}
+
+button.ui-button.ui-state-default:hover
+{
+    color:#fff;     
+}
+
+span.ui-button-icon-primary.ui-icon.ui-icon-closethick
+{
+    background-image:url(../images/dialog_close.png);
+    background-repeat:no-repeat;
+    background-size:100%;
+    height:20px;
+    width:20px;
+    left:7px;
+    top:7px;
+}
+
+button.btn_toggle_open
+{
+    background: url(../images/toggle_openIcon.png);
+    background-size:15px;
+	background-repeat:no-repeat;
+	background-position:5px 0;
+	padding-left:25px;
+}
+button.btn_toggle_close
+{
+    background: url(../images/toggle_closeIcon.png);
+    background-size:15px;
+	background-repeat:no-repeat;
+	background-position:5px 0;
+	padding-left:25px;
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.popupDialog
+{
+    max-width:800px;    
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.alertDialog
+{
+    max-width:400px;  
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.confirmDialog
+{
+    max-width:400px;  
+}
+
+.ui-dialog
+{
+	position:absolute;
+	top:50% !Important;
+	left:50% !Important;
+	transform: translate3d(-50%,-50%,0) !Important;
+	-webkit-transform: translate3d(-50%,-50%,0) !Important;
+}
