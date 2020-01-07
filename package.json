@@ -1,0 +1,25 @@
+{
+  "name": "cams-popup-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "none",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chrome": "0.0.91",
+    "@types/gapi.auth2": "0.0.51",
+    "@types/gapi.client.calendar": "^3.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paul-kline/cams-popup-extension.git"
+  },
+  "author": "Paul Kline",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paul-kline/cams-popup-extension/issues"
+  },
+  "homepage": "https://github.com/paul-kline/cams-popup-extension#readme"
+}

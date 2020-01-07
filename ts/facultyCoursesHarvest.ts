@@ -1,3 +1,10 @@
+/**
+ * Gives the course offerings page the option to
+ * harvest all course information to be sent to my custom course viewer.
+ * Because the course offerings search and viewing really really sucks.
+ */
+//######################################################################
+
 async function replaceAll() {
   const elem: any = document.querySelector(".Page_Content");
   const div = document.createElement("div");
@@ -11,6 +18,7 @@ async function replaceAll() {
   }, div);
   (window as any).classes = classes;
 }
+
 async function harvestCourses(pageStatus: any, div?: HTMLDivElement) {
   console.log("harvestCoursesss");
 
@@ -47,7 +55,7 @@ async function harvestCourses(pageStatus: any, div?: HTMLDivElement) {
   const classesLen = classes.length;
   await Promise.all(
     classes.map(c =>
-      c.detailsPromise.then(x => {
+      c.detailsPromise.then((x: any) => {
         detailsResolved++;
         if (div && Math.random() < 0.5) {
           div.innerHTML =
@@ -124,13 +132,16 @@ async function formSubmit() {
       return x;
     });
 }
+/**
+ * returns the number of pages of courses in the current result set.
+ * It is intended that no filtering has been applied so that all courses
+ * are in the result set.
+ */
 function getLastPage(): number {
-  //@ts-ignore
   return Number.parseInt(
-    //@ts-ignore
-    document
-      .getElementsByClassName("Portal_Grid_Pager")[0]
-      .innerText.match(/Total Pages: (\d+)/)[1],
+    (document.getElementsByClassName(
+      "Portal_Grid_Pager"
+    )[0] as any).innerText.match(/Total Pages: (\d+)/)[1],
     10
   );
 }
@@ -140,7 +151,7 @@ function harvestPage(
   let table: HTMLTableElement | null = doc.querySelector(
     "table[summary='Course Offering List']"
   );
-  console.log("table is", table);
+  // console.log("table is", table);
   if (!table) {
     console.log("couldn't find main table");
     return [];
@@ -149,7 +160,7 @@ function harvestPage(
   const headers = toArr(headersElems)
     .map(toInnerText)
     .map(toKey); //[];
-  console.log("headers are", headers);
+  // console.log("headers are", headers);
   const rows: NodeListOf<HTMLTableRowElement> = (table.querySelector(
     "tbody"
   ) as any).children as any;
@@ -182,7 +193,7 @@ function harvestPage(
       parseScheduleTable(row, currentObj);
     }
   }
-  console.log("results", results);
+  // console.log("results", results);
   return results;
 }
 function mkDetailsPromise(me: any, path: string) {
@@ -208,9 +219,11 @@ function mkDetailsPromise(me: any, path: string) {
           } catch (e) {
             console.log(
               "something wrong in details promise",
-              toArr(el.querySelectorAll("td")).map(td => td.innerText.trim())
+              toArr(el.querySelectorAll("td")).map(td =>
+                td ? td.innerText.trim() : "td is null"
+              )
             );
-            console.error(e);
+            // console.error(e);
           }
           const preReqTable = el.querySelector(
             "table[summary='Prerequisite formula information']"
@@ -295,7 +308,7 @@ function parseScheduleTable(row: HTMLTableRowElement, obj: any = {}) {
   const headers = toArr(headerElems)
     .map(toInnerText)
     .map(toKey);
-  console.log("headers are:", headers);
+  // console.log("headers are:", headers);
   //   obj.headers = headers;
   obj.schedules = [];
   const rows = table.querySelectorAll(":scope tbody>tr:not(.headerRow)");
@@ -304,9 +317,10 @@ function parseScheduleTable(row: HTMLTableRowElement, obj: any = {}) {
     const sched: any = {};
     const tr = rows[i];
     const tds = toArr(tr.children as any).filter(
+      //@ts-ignore
       x => !x.className.includes("blankCell")
     );
-    console.log("tds", tds);
+    // console.log("tds", tds);
     for (let j = 0; j < tds.length; j++) {
       const td: any = tds[j];
       sched[headers[j]] = td.innerText.trim();
@@ -353,6 +367,12 @@ function placeButton() {
     x.innerHTML;
 }
 placeButton();
+
+/**
+ * creates a script element and adds all code here natively to the page.
+ * This step is necessary because js code in an extention is actually sandboxed.
+ * Though in this case, we need to avoid the sandbox.
+ */
 function addCode() {
   const elem = document.createElement("script");
   let str = "";

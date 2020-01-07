@@ -1,15 +1,17 @@
-var disablerFunction = function() {
+const disablerFunction = () => {
   const realOpen = window.open;
-  function toaster(str) {
-    var x = document.getElementById("snackbar");
+  function toaster(str: string) {
+    const x = document.getElementById("snackbar") as HTMLDivElement;
     x.innerText = str;
     x.className = "show";
     setTimeout(function() {
       x.className = x.className.replace("show", "");
     }, 3000);
   }
-  console.log("I'm running!");
-  window.alert = function alert(msg) {
+  console.log("prevent alerts code running");
+
+  //replace window.alert functionality.
+  window.alert = (msg: string) => {
     if (msg.match(/^Popups are disabled/i)) {
       //eat it.
       console.log("Hidden Alert: " + msg);
@@ -18,20 +20,23 @@ var disablerFunction = function() {
       toaster(msg);
     }
   };
-  window.confirm = function confirm(msg) {
+  window.confirm = (msg: string | undefined) => {
     console.log("Hidden Confirm " + msg);
-    toaster(msg);
+    toaster(msg || "Confirmation box with no message given");
     return true; /*simulates user clicking yes*/
   };
   window.open = function open(...msg) {
     // const realOpen = realOpen1;
-    const m = msg[0].match(/poptest/);
+    const m = msg[0] && msg[0].match(/poptest/);
     if (m) {
-      console.log("Chrome extension has disabled the ability to open new pages, sucka!", ...msg);
-      return true; /*simulates user clicking yes*/
+      console.log(
+        "Chrome extension has disabled the ability to open new pages, sucka!",
+        ...msg
+      );
+      return null;
     } else {
       console.log("Allowing popup");
-      realOpen(...msg);
+      return realOpen(...msg);
     }
   };
 };
@@ -41,7 +46,8 @@ const disablerScriptElement = document.createElement("script");
 disablerScriptElement.textContent = disablerCode;
 
 (document.head || document.documentElement).appendChild(disablerScriptElement);
-disablerScriptElement.parentNode.removeChild(disablerScriptElement);
+//why am I removing it? not sure, so I commented out.
+// disablerScriptElement.parentNode!.removeChild(disablerScriptElement);
 
 function snackbarHelper() {
   const snackbarStyle = document.createElement("style");

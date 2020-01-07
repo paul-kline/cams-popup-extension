@@ -1,29 +1,21 @@
 {
   "name": "CAMS Helper",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Provides various improvements when interacting with the CAMS system.",
   "manifest_version": 2,
   "content_scripts": [
     {
       "matches": ["https://portals.blackburn.edu/*/login.asp"],
-      "js": ["loginpagescript.js"]
+      "js": ["autologin.js"]
     },
     {
       "matches": ["https://portals.blackburn.edu/*"],
       "run_at": "document_start",
       "js": ["preventAlerts.js"],
       "exclude_matches": [
-        "https://portals.blackburn.edu/estudent/cePortalMatrixSchedule.asp*",
-        "https://portals.blackburn.edu/efaculty/ceFacultySchedules.asp*",
         "https://portals.blackburn.edu/efaculty/cePortalOffering.asp*",
         "https://portals.blackburn.edu/estudent/cePortalOffering.asp*"
       ]
-    },
-    {
-      "matches": [
-        "https://portals.blackburn.edu/efaculty/cmCourseManagementOptions*"
-      ],
-      "js": ["courseAttendanceHarvester.js"]
     },
     {
       "matches": [
@@ -33,17 +25,17 @@
     },
     {
       "matches": ["https://portals.blackburn.edu/efaculty/index.asp"],
-      "js": ["ammendHomepage.js"]
+      "js": ["./attendance/ammendHomepage.js"]
     },
     {
       "matches": ["https://portals.blackburn.edu/efaculty/ceCourseList.asp*"],
-      "js": ["courseHarvest.js"]
+      "js": ["./attendance/courseHarvest.js"]
     },
     {
       "matches": [
         "https://portals.blackburn.edu/efaculty/cmFacultyAttendanceDateRange.asp*"
       ],
-      "js": ["attendanceSetSchedule.js"]
+      "js": ["./attendance/attendanceSetSchedule.js"]
     },
     {
       "matches": [
@@ -56,16 +48,30 @@
         "https://portals.blackburn.edu/efaculty/ceFacultySchedules.asp*"
       ],
 
-      "js": ["googleCalendarTools.js", "facultyScheduleHarvest.js"]
+      "js": [
+        "./scheduleHarvesting/googleCalendarTools.js",
+        "./scheduleHarvesting/facultyScheduleHarvest.js"
+      ]
     },
     {
       "matches": [
         "https://portals.blackburn.edu/estudent/cePortalMatrixSchedule.asp*",
+        "https://portals.blackburn.edu/efaculty/cePortalMatrixSchedule.asp*",
         "file:///C:/Users/pauli/Downloads/stuff/stuff/My%20Schedule.html",
         "http://lvh.me:5500/stuff/stuff/My%20Schedule.html"
       ],
 
-      "js": ["googleCalendarTools.js", "studentScheduleHarvest.js"]
+      "js": [
+        "./scheduleHarvesting/googleCalendarTools.js",
+        "./scheduleHarvesting/studentScheduleHarvest.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://portals.blackburn.edu/efaculty/cePortalMatrixSchedule.asp*"
+      ],
+
+      "js": ["studentScheduleHarvestForOfficeHours.js"]
     },
     {
       "matches": [
@@ -75,6 +81,16 @@
       ],
 
       "js": ["facultyCoursesHarvest.js"]
+    },
+    {
+      "matches": [
+        "https://portals.blackburn.edu/efaculty/ceSelectStudent.asp*"
+      ],
+      "js": [
+        "./scheduleHarvesting/googleCalendarTools.js",
+        "studentScheduleHarvestForOfficeHours.js",
+        "allStudentScheduleHarvest.js"
+      ]
     }
   ],
   "permissions": ["storage"]

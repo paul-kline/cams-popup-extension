@@ -1,11 +1,30 @@
+interface GoogleEvent {
+  summary: string;
+  room: string;
+  location: string;
+  description: string;
+  start: GDate;
+  end: GDate;
+  recurrence: string[];
+  attendees?: any[];
+  reminders?: any;
+  //my additions:
+  classTitle: string;
+  start_dt?: string;
+  end_dt?: string;
+}
+interface GDate {
+  dateTime: string;
+  timeZone: string;
+}
 /**
  *move the start date to the first day in list.
  * @param {Date} date the date to modify
- * @param {string} days A string like "MWF"
+ * @param {string} dayss A string like "MWF"
  */
-function adjustDate(date, days) {
+function adjustDate(date: Date, dayss: string): Date {
   const daysLookup = ["U", "M", "T", "W", "R", "F", "S"];
-  days = days.split("");
+  const days = dayss.split("");
   const daysAsNumbers = days.map(d => daysLookup.indexOf(d));
   if (daysAsNumbers.includes(date.getDay())) {
     return date;
@@ -17,17 +36,26 @@ function adjustDate(date, days) {
       }
     }
   }
-  console.log("this should be impossible to reach. No future date was found in adjustDate", date, days);
+
+  console.error(
+    "this should be impossible to reach. No future date was found in adjustDate",
+    date,
+    days
+  );
+  return date;
 }
-function toDateTime(datestr, timestr) {
+/**
+ * @param datestr expected form m/d/yyyy
+ * @param timestr expected form "03:00 PM"
+ */
+function toDateTime(datestr: string, timestr: string): Date {
   return setTime(toDate(datestr), timestr);
 }
 /**
- *
  * @param {string} str expected form m/d/yyyy
  */
-function toDate(str) {
-  const [_, month, day, year] = str.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+function toDate(str: string): Date {
+  const [_, month, day, year]: any = str.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
   const d = new Date();
   d.setFullYear(year);
   d.setDate(day);
@@ -35,16 +63,15 @@ function toDate(str) {
   return d;
 }
 /**
- *
  * @param {Date} date the date to modify
  * @param {string} timestr expected form "03:00 PM"
  */
-function setTime(date, timestr) {
+function setTime(date: Date, timestr: string): Date {
   // "03:00 PM"
   // "12:30 PM"
-  let [_, h, m] = timestr.match(/(\d+):(\d+)/);
-  h = Number.parseInt(h);
-  m = Number.parseInt(m);
+  let [_, h, m]: any = timestr.match(/(\d+):(\d+)/);
+  h = Number.parseInt(h, 10);
+  m = Number.parseInt(m, 10);
   if (timestr.toLowerCase().endsWith("pm") && h < 12) {
     h += 12;
   }
@@ -68,12 +95,15 @@ function addCode() {
   code += deleteEvent.toString() + "\n";
 
   elem.innerHTML = code;
-  document.querySelector("body").append(elem);
+  document.querySelector("body")!.append(elem);
   addGoogleCode();
 }
 addCode();
-async function exportToGoogle(events, callback) {
+
+async function exportToGoogle(events: GoogleEvent[], callback: any) {
   console.log("boop. export clicked");
+  //handleauth click lives on the window.
+  //@ts-ignore
   const r = await handleAuthClick();
   console.log("result of handle authclient:", r);
   if (r.error) {
@@ -83,6 +113,7 @@ async function exportToGoogle(events, callback) {
   // const batch = gapi.client.newBatch();
   events.forEach(event => {
     console.log("event submitting is: ", event);
+    //@ts-ignore : calendar type isn't known?
     const request = gapi.client.calendar.events.insert({
       calendarId: "primary",
       resource: event
@@ -97,12 +128,13 @@ async function exportToGoogle(events, callback) {
   // console.log("batch:", batch);
 }
 
-function deleteEvent(eventId, callback) {
+function deleteEvent(eventId: any, callback: (x: any, y: any) => any) {
   var params = {
     calendarId: "primary",
     eventId: eventId
   };
 
+  //@ts-ignore
   const request = gapi.client.calendar.events.delete(params, function(err) {
     if (err) {
       console.log("The API returned an error: " + err);
@@ -111,31 +143,35 @@ function deleteEvent(eventId, callback) {
     console.log("Event deleted.");
     // callback("Event deleted: " + eventId);
   });
-  request.execute(event => {
+  request.execute((event: any) => {
     console.log(event, "deleted");
     if (callback) {
       callback(eventId, event);
     }
   });
 }
+
 function googleCode() {
   console.log("googleCode...");
   // Client ID and API key from the Developer Console
   //this key is managed by paul.kline@blackburn.edu
-  window.CLIENT_ID = "1034386305664-ml1uq0ncrujg5hfo0dqd0im49tun1h73.apps.googleusercontent.com";
+  (window as any).CLIENT_ID =
+    "1034386305664-ml1uq0ncrujg5hfo0dqd0im49tun1h73.apps.googleusercontent.com";
 
   //pauliankline@gmail.com : "820527871859-o85ov91ar8rrnos73i6qslvjov5361j1.apps.googleusercontent.com";
   // const clientsecret = "fedE3mPOcBfcLJmWkU2d-F0l";
   //pauliankline@gmail.com managed key:
   // window.API_KEY = apikey = "AIzaSyD-K091cR8wf1wJYfxfGFgBdfaUwm_TEr4";
   //paul.kline@blackburn.edu managed key
-  window.API_KEY = apikey = "AIzaSyDQIAXi4vhBoqiKJ4Alc21LThU3J0hM0r0";
+  (window as any).API_KEY = "AIzaSyDQIAXi4vhBoqiKJ4Alc21LThU3J0hM0r0";
 
   // Array of API discovery doc URLs for APIs used by the quickstart
-  window.DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+  (window as any).DISCOVERY_DOCS = [
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+  ];
   // Authorization scopes required by the API; multiple scopes can be
   // included, separated by spaces.
-  window.SCOPES = "https://www.googleapis.com/auth/calendar";
+  (window as any).SCOPES = "https://www.googleapis.com/auth/calendar";
 
   //   var authorizeButton = document.getElementById('authorize_button');
   //   var signoutButton = document.getElementById('signout_button');
@@ -146,18 +182,23 @@ function googleCode() {
     console.log("handleClientLoad...");
     gapi.load("client:auth2", initClient);
   }
-  window.handleClientLoad = handleClientLoad;
+  (window as any).handleClientLoad = handleClientLoad;
   /**
    *  Initializes the API client library and sets up sign-in state
    *  listeners.
    */
   function initClient() {
     console.log("initClient...");
+    //these are fine, they have placed on window object.
     gapi.client
       .init({
+        //@ts-ignore
         apiKey: API_KEY,
+        //@ts-ignore
         clientId: CLIENT_ID,
+        //@ts-ignore
         discoveryDocs: DISCOVERY_DOCS,
+        //@ts-ignore
         scope: SCOPES
       })
       .then(
@@ -175,13 +216,13 @@ function googleCode() {
         }
       );
   }
-  window.initClient = initClient;
+  (window as any).initClient = initClient;
 
   /**
    *  Called when the signed in status changes, to update the UI
    *  appropriately. After a sign-in, the API is called.
    */
-  function updateSigninStatus(isSignedIn) {
+  function updateSigninStatus(isSignedIn: boolean) {
     console.log("signed in!!!!", isSignedIn);
     // if (isSignedIn) {
     //   authorizeButton.style.display = 'none';
@@ -192,33 +233,34 @@ function googleCode() {
     //   signoutButton.style.display = 'none';
     // }
   }
-  window.updateSigninStatus = updateSigninStatus;
+  (window as any).updateSigninStatus = updateSigninStatus;
   /**
    *  Sign in the user upon button click.
    */
   async function handleAuthClick(
-    event,
+    event: any,
     f = () => {
       console.log("signed in");
     }
   ) {
     try {
-      return await gapi.auth2.getAuthInstance().signIn(f);
+      return await gapi.auth2.getAuthInstance().signIn(f as any);
     } catch (e) {
       console.log("failed to sign in:", e);
       return e;
     }
     console.log("booooooop signed in finished!");
   }
-  window.handleAuthClick = handleAuthClick;
+  //don't mind me.
+  (window as any).handleAuthClick = handleAuthClick;
 
   /**
    *  Sign out the user upon button click.
    */
-  function handleSignoutClick(event) {
+  function handleSignoutClick(event: any) {
     gapi.auth2.getAuthInstance().signOut();
   }
-  window.handleSignoutClick = handleSignoutClick;
+  (window as any).handleSignoutClick = handleSignoutClick;
 
   /**
    * Append a pre element to the body containing the given message
@@ -226,7 +268,7 @@ function googleCode() {
    *
    * @param {string} message Text to be placed in pre element.
    */
-  function appendPre(message) {
+  function appendPre(message: string) {
     // var pre = document.getElementById("content");
     // var textContent = document.createTextNode(message + "\n");
     // pre.appendChild(textContent);
@@ -240,6 +282,7 @@ function googleCode() {
    * appropriate message is printed.
    */
   function listUpcomingEvents() {
+    //@ts-ignore
     gapi.client.calendar.events
       .list({
         calendarId: "primary",
@@ -249,12 +292,12 @@ function googleCode() {
         maxResults: 10,
         orderBy: "startTime"
       })
-      .then(function(response) {
-        var events = response.result.items;
+      .then((response: any) => {
+        const events = response.result.items;
         appendPre("Upcoming events:");
 
-        if (events.length > 0) {
-          for (i = 0; i < events.length; i++) {
+        if (events && events.length > 0) {
+          for (let i = 0; i < events.length; i++) {
             var event = events[i];
             var when = event.start.dateTime;
             if (!when) {
@@ -268,16 +311,25 @@ function googleCode() {
       });
   }
 }
+/**
+ * brings in that sweet, juicy google calendar code
+ * into our universe. that code is stored in @googleCode
+ */
 function addGoogleCode() {
   const googStarter = mkGscriptElem();
   const body = document.querySelector("body");
-  body.append(googStarter);
+  //come on, this def exists.
+  body!.append(googStarter);
   const elem = document.createElement("script");
   let content = googleCode.toString() + "; googleCode()";
   elem.innerHTML = content;
-  body.append(elem);
+  body!.append(elem);
 }
-function mkGscriptElem() {
+
+/**
+ * creates the element to load in g cal.
+ */
+function mkGscriptElem(): HTMLScriptElement {
   const elem = document.createElement("script");
   elem.setAttribute("async", "");
   elem.setAttribute("defer", "");
@@ -286,7 +338,10 @@ function mkGscriptElem() {
   elem.src = "https://apis.google.com/js/api.js";
   elem.setAttribute("onload", "this.onload=function(){};handleClientLoad()");
   //   elem.onload = "this.onload=function(){};handleClientLoad()";
-  elem.setAttribute("onreadystatechange", "if (this.readyState === 'complete') this.onload()");
+  elem.setAttribute(
+    "onreadystatechange",
+    "if (this.readyState === 'complete') this.onload()"
+  );
   // elem.onreadystatechange = "if (this.readyState === 'complete') this.onload()";
 
   return elem;
