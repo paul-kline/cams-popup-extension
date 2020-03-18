@@ -20,6 +20,7 @@ const disablerFunction = () => {
       toaster(msg);
     }
   };
+  (window as any).toast = toaster;
   window.confirm = (msg: string | undefined) => {
     console.log("Hidden Confirm " + msg);
     toaster(msg || "Confirmation box with no message given");

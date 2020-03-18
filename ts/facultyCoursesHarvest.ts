@@ -70,15 +70,15 @@ async function harvestCourses(pageStatus: any, div?: HTMLDivElement) {
   );
   if (div) {
     // div.innerHTML = `<a href="https://classplanner.pauliankline.com/ClassesView/" target="_blank"> All details resolved.</a>`;
-    div.innerHTML = `All details resolved! Click button to view&plan: <button onclick="doOpen()">View/Plan</button>`;
+    div.innerHTML = `All details resolved! Click button to view&plan: <button onclick="doOpen()">Plan Classes</button>`;
   }
   console.log("all details fetched:", classes);
   return classes;
 }
 function doOpen() {
   const targetwindow = window.open(
-    "https://classplanner.pauliankline.com/ClassesView/"
-    // "http://localhost:3000/ClassesView"
+    // "https://classplanner.pauliankline.com/ClassesView/"
+    "http://localhost:3000/ClassesView"
   );
   if (targetwindow) {
     targetwindow.focus();
