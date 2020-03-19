@@ -18,9 +18,15 @@
       ]
     },
     {
-      "matches": ["https://portals.blackburn.edu/efaculty/cmCourseManagementOptions*"],
+      "matches": [
+        "https://portals.blackburn.edu/efaculty/cmCourseManagementOptions*",
+        "https://portals.blackburn.edu/efaculty/cmFacultyAttendance.asp*"
+      ],
       "js": ["ammendTitleToClass.js"]
-    },
+    },{
+      "matches":["https://portals.blackburn.edu/*"],
+      "js" : ["ammendMenu.js"]
+    }
     {
       "matches": ["https://portals.blackburn.edu/efaculty/index.asp"],
       "js": ["./attendance/ammendHomepage.js"]
