@@ -41,7 +41,7 @@ function placeButton() {
   //@ts-ignore
   const x = document.querySelector(".Page_Logo");
   x.innerHTML =
-    "<button id='replacebtn' onclick='harvest()'> Harvest</button>" +
+    "<button style=\"background:yellow;\" id='replacebtn' onclick='harvest()'> Harvest schedules (console print only)</button>" +
     x.innerHTML;
 }
 placeButton();
@@ -59,19 +59,14 @@ async function submitStudent(id: number) {
   return formSubmit("Navigation");
 }
 function getNumberOfStudents(): number {
-  return (
-    document
-      .querySelector("table")
-      .querySelectorAll("tr:not(.Portal_Table_Caption)").length - 1
-  );
+  return document.querySelector("table").querySelectorAll("tr:not(.Portal_Table_Caption)").length - 1;
 }
 async function getSchedulePage(id: number) {
   //   console.log("boop1");
   const r1 = await submitStudent(id);
   //   console.log("first result", r1);
   //   console.log("subbmitted");
-  const url =
-    location.origin + "/efaculty/cePortalMatrixSchedule.asp" + location.search;
+  const url = location.origin + "/efaculty/cePortalMatrixSchedule.asp" + location.search;
   //   console.log("fetching:", url);s
   return fetch(url).then(x => x.text());
 }
@@ -84,9 +79,7 @@ function toArr(ls: any): any[] {
 }
 async function formSubmit(
   formid: string,
-  endpoint: string = location.origin +
-    "/efaculty/setSessionObjects.asp" +
-    location.search
+  endpoint: string = location.origin + "/efaculty/setSessionObjects.asp" + location.search
 ) {
   const data = new URLSearchParams();
   const formElement = document.forms[formid];

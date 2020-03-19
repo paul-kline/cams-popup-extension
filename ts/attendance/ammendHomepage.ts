@@ -20,6 +20,7 @@ function placeAttendanceButtons(): void {
     //create an html button for each class
     classes.forEach((c: any) => {
       c.elem = document.createElement("button");
+      c.elem.style.background = "yellow";
       c.elem.innerHTML = c.name + " Attendance";
       c.elem.onclick = async () => {
         console.log(c.name + " clicked.");
@@ -32,9 +33,7 @@ function placeAttendanceButtons(): void {
         page.appendChild(c.elem);
       });
     } else {
-      console.error(
-        "page was null. cannot find an element from selector #mainBody. Not appending attendance classes."
-      );
+      console.error("page was null. cannot find an element from selector #mainBody. Not appending attendance classes.");
     }
   });
 }
@@ -52,17 +51,12 @@ async function goToAttendance(crs: string | number): Promise<Response> {
   //crs: 31503
   // accessKey:
   const k = getKey();
-  const r = await postData(
-    "https://portals.blackburn.edu/efaculty/SetcmSessionObjects.asp?ak=" + k,
-    {
-      crs: crs,
-      accessKey: k
-    }
-  );
+  const r = await postData("https://portals.blackburn.edu/efaculty/SetcmSessionObjects.asp?ak=" + k, {
+    crs: crs,
+    accessKey: k
+  });
   console.log("response", r);
-  window.location.href =
-    "https://portals.blackburn.edu/efaculty/cmFacultyAttendanceDateRange.asp?ak=" +
-    k;
+  window.location.href = "https://portals.blackburn.edu/efaculty/cmFacultyAttendanceDateRange.asp?ak=" + k;
   return r;
 }
 
@@ -70,17 +64,12 @@ async function goToAttendance(crs: string | number): Promise<Response> {
  * returns an object of key value pairs of the get params of the specified path.
  * @param path URL to harvest gat params from. Defaults to window.location.href
  */
-function getUrlVars(
-  path: string = window.location.href
-): { [key: string]: string } {
+function getUrlVars(path: string = window.location.href): { [key: string]: string } {
   const vars: any = {};
-  const parts = path.replace(
-    /[?&]+([^=&]+)=([^&]*)/gi,
-    (m: any, key: any, value: any) => {
-      vars[key] = value;
-      return "";
-    }
-  );
+  const parts = path.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m: any, key: any, value: any) => {
+    vars[key] = value;
+    return "";
+  });
   return vars;
 }
 

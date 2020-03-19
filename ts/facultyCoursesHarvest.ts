@@ -8,13 +8,12 @@
 async function replaceAll() {
   const elem: any = document.querySelector(".Page_Content");
   const div = document.createElement("div");
+  div.style.backgroundColor = "yellow";
   elem.prepend(div);
   //   elem.innerHTML = "Please wait...";
   //@ts-ignore
   const classes = await harvestCourses((currentpage, totalpages) => {
-    div.innerHTML = `<div>Please wait....</div><div>${Math.round(
-      (currentpage / totalpages) * 100
-    )} %</div>`;
+    div.innerHTML = `<div>Please wait....</div><div>${Math.round((currentpage / totalpages) * 100)} %</div>`;
   }, div);
   (window as any).classes = classes;
 }
@@ -58,27 +57,22 @@ async function harvestCourses(pageStatus: any, div?: HTMLDivElement) {
       c.detailsPromise.then((x: any) => {
         detailsResolved++;
         if (div && Math.random() < 0.5) {
-          div.innerHTML =
-            "<div>Resolving classes: " +
-            detailsResolved +
-            "/" +
-            classesLen +
-            "</div>";
+          div.innerHTML = "<div>Resolving classes: " + detailsResolved + "/" + classesLen + "</div>";
         }
       })
     )
   );
   if (div) {
     // div.innerHTML = `<a href="https://classplanner.pauliankline.com/ClassesView/" target="_blank"> All details resolved.</a>`;
-    div.innerHTML = `All details resolved! Click button to view&plan: <button onclick="doOpen()">Plan Classes</button>`;
+    div.innerHTML = `All details resolved! Click button to view&plan: <button style="background:yellow;" onclick="doOpen()">Plan Classes</button>`;
   }
   console.log("all details fetched:", classes);
   return classes;
 }
 function doOpen() {
   const targetwindow = window.open(
-    // "https://classplanner.pauliankline.com/ClassesView/"
-    "http://localhost:3000/ClassesView"
+    "https://classplanner.pauliankline.com/ClassesView/"
+    // "http://localhost:3000/ClassesView"
   );
   if (targetwindow) {
     targetwindow.focus();
@@ -100,19 +94,14 @@ function postmessage() {
       return;
     }
     const term = (termElem as any).innerText.match(/[A-Za-z]+-\d+/)[0];
-    targetwindow.postMessage(
-      JSON.stringify({ term: term, classes: (window as any).classes }),
-      "*"
-    );
+    targetwindow.postMessage(JSON.stringify({ term: term, classes: (window as any).classes }), "*");
   } else {
     console.log("target window was null");
   }
 }
 async function formSubmit() {
   const data = new URLSearchParams();
-  const formElement: HTMLFormElement = (document.forms as any)[
-    "OptionsForm"
-  ] as any;
+  const formElement: HTMLFormElement = (document.forms as any)["OptionsForm"] as any;
   //@ts-ignore
   for (const pair of new FormData(formElement)) {
     //@ts-ignore
@@ -139,18 +128,12 @@ async function formSubmit() {
  */
 function getLastPage(): number {
   return Number.parseInt(
-    (document.getElementsByClassName(
-      "Portal_Grid_Pager"
-    )[0] as any).innerText.match(/Total Pages: (\d+)/)[1],
+    (document.getElementsByClassName("Portal_Grid_Pager")[0] as any).innerText.match(/Total Pages: (\d+)/)[1],
     10
   );
 }
-function harvestPage(
-  doc: HTMLHtmlElement = document.querySelector("html") as any
-) {
-  let table: HTMLTableElement | null = doc.querySelector(
-    "table[summary='Course Offering List']"
-  );
+function harvestPage(doc: HTMLHtmlElement = document.querySelector("html") as any) {
+  let table: HTMLTableElement | null = doc.querySelector("table[summary='Course Offering List']");
   // console.log("table is", table);
   if (!table) {
     console.log("couldn't find main table");
@@ -161,9 +144,7 @@ function harvestPage(
     .map(toInnerText)
     .map(toKey); //[];
   // console.log("headers are", headers);
-  const rows: NodeListOf<HTMLTableRowElement> = (table.querySelector(
-    "tbody"
-  ) as any).children as any;
+  const rows: NodeListOf<HTMLTableRowElement> = (table.querySelector("tbody") as any).children as any;
   (window as any).rows = rows;
   const results = [];
   // console.log(rows);
@@ -176,10 +157,7 @@ function harvestPage(
       // console.log("currentObj is", currentObj);
 
       if (currentObj) {
-        currentObj.detailsPromise = mkDetailsPromise(
-          currentObj,
-          currentObj.path
-        );
+        currentObj.detailsPromise = mkDetailsPromise(currentObj, currentObj.path);
         results.push(currentObj);
       }
       currentObj = {};
@@ -219,29 +197,20 @@ function mkDetailsPromise(me: any, path: string) {
           } catch (e) {
             console.log(
               "something wrong in details promise",
-              toArr(el.querySelectorAll("td")).map(td =>
-                td ? td.innerText.trim() : "td is null"
-              )
+              toArr(el.querySelectorAll("td")).map(td => (td ? td.innerText.trim() : "td is null"))
             );
             // console.error(e);
           }
-          const preReqTable = el.querySelector(
-            "table[summary='Prerequisite formula information']"
-          );
+          const preReqTable = el.querySelector("table[summary='Prerequisite formula information']");
           if (preReqTable) {
             try {
               //@ts-ignore
-              me.prereqs = (
-                preReqTable.querySelector("span") ||
-                preReqTable.querySelector("td")
-              ).innerText.trim();
+              me.prereqs = (preReqTable.querySelector("span") || preReqTable.querySelector("td")).innerText.trim();
             } catch (e) {
               console.error("failed to parse prereqs:", e);
             }
           }
-          const coRecTableBody = el.querySelector(
-            "table[summary='CoRequisite formula information'] >tbody"
-          );
+          const coRecTableBody = el.querySelector("table[summary='CoRequisite formula information'] >tbody");
           if (coRecTableBody) {
             try {
               //@ts-ignore
@@ -252,9 +221,7 @@ function mkDetailsPromise(me: any, path: string) {
             }
           }
 
-          const equivalentsTable = el.querySelector(
-            "table[summary*='Course Equivalent']"
-          );
+          const equivalentsTable = el.querySelector("table[summary*='Course Equivalent']");
           if (equivalentsTable) {
             try {
               me.equivalents = parseEquivalents(equivalentsTable as any);
@@ -284,9 +251,7 @@ function parseEquivalents(equivalentsTable: HTMLTableElement): any {
   const headers = toArr(equivalentsTable.querySelectorAll("th"))
     .map(x => x.innerText.trim())
     .map(toKey);
-  const tds = toArr(equivalentsTable.querySelectorAll("td")).map(x =>
-    x.innerText.trim()
-  );
+  const tds = toArr(equivalentsTable.querySelectorAll("td")).map(x => x.innerText.trim());
   const ans: any = {};
   headers.forEach((h, i) => {
     ans[h] = tds[i];
@@ -297,13 +262,9 @@ function toInnerText(x: any): string {
   return x.innerText ? x.innerText.trim() : "";
 }
 function parseScheduleTable(row: HTMLTableRowElement, obj: any = {}) {
-  const table: HTMLTableElement = row.querySelector(
-    ":scope table"
-  ) as HTMLTableElement;
+  const table: HTMLTableElement = row.querySelector(":scope table") as HTMLTableElement;
   // console.log("row is", row);
-  const headerElems = table.querySelectorAll(
-    ":scope .headerRow> th:not(.blankCell)"
-  );
+  const headerElems = table.querySelectorAll(":scope .headerRow> th:not(.blankCell)");
 
   const headers = toArr(headerElems)
     .map(toInnerText)
@@ -329,20 +290,14 @@ function parseScheduleTable(row: HTMLTableRowElement, obj: any = {}) {
   }
   return obj;
 }
-function parseTitleRow(
-  headers: string[],
-  row: HTMLTableRowElement,
-  obj: any = {}
-) {
+function parseTitleRow(headers: string[], row: HTMLTableRowElement, obj: any = {}) {
   const courseNameIndex = 1;
   const tds = row.children;
   for (let i = 0; i < tds.length; i++) {
     const cell = tds[i];
     if (courseNameIndex == i) {
       try {
-        obj.path = (cell.children[0] as any).onclick
-          .toString()
-          .match(/openpopup\('(.*)'\)/)[1];
+        obj.path = (cell.children[0] as any).onclick.toString().match(/openpopup\('(.*)'\)/)[1];
       } catch (e) {
         console.error(
           "something went wrong trying to harvest the details path url",
@@ -363,7 +318,7 @@ function placeButton() {
   //@ts-ignore
   const x: any = document.querySelector(".Page_Logo");
   x.innerHTML =
-    "<button id='replacebtn' onclick='replaceAll()'> Better view plz</button>" +
+    "<button style=\"background:yellow;\" id='replacebtn' onclick='replaceAll()'> Better view plz</button>" +
     x.innerHTML;
 }
 placeButton();
@@ -394,10 +349,7 @@ function addCode() {
   str += `(${(() => {
     window.addEventListener("message", receiveMessage, false);
     function receiveMessage(event: any) {
-      console.log(
-        "I received a message! :D I will postmessge in response",
-        event
-      );
+      console.log("I received a message! :D I will postmessge in response", event);
       postmessage();
     }
   }).toString()})()`;

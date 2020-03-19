@@ -12,13 +12,11 @@ const days = ["U", "M", "T", "W", "R", "F", "S"];
 function setSchedule(): void {
   const selector: HTMLSelectElement | null = document.querySelector("#" + id);
   if (selector) {
+    selector.style.backgroundColor = "yellow";
     const options = selector.options;
     // console.log(options);
     //set to today or most recent. takes advantage of short circuiting.
-    setSelector(
-      selector,
-      todayOption(options) || mostRecentDayOption(options) || ""
-    );
+    setSelector(selector, todayOption(options) || mostRecentDayOption(options) || "");
   }
 }
 setSchedule();
@@ -39,10 +37,7 @@ function optionIsMatch(option: HTMLOptionElement, searchText: string): boolean {
  * @param selector the selector html element
  * @param today the day as a letter code 'U', 'M', etc.
  */
-function todayOption(
-  options: HTMLOptionsCollection,
-  today: string = days[new Date().getDay()]
-): string | null {
+function todayOption(options: HTMLOptionsCollection, today: string = days[new Date().getDay()]): string | null {
   //TODO: does not account for multiple occuring in same day: i.e. lab and lecture.
   for (let i = 0; i < options.length; i++) {
     //any type because gunna add prop.
@@ -89,6 +84,7 @@ function mostRecentDayOption(options: HTMLOptionsCollection): string | null {
       setTimeout(() => {
         const e = document.querySelector("#datefrom");
         if (e) {
+          e.style.backgroundColor = "yellow";
           setSelector(e as HTMLSelectElement, TODAYDATE.toLocaleDateString());
         }
       }, 10);

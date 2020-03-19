@@ -25,14 +25,8 @@ function toEvents(classs: Course): GoogleEvent[] {
     event.classTitle = c.course;
     event.location = sched.building + ": " + sched.room;
     event.description = c.title;
-    const start_dt = adjustDate(
-      toDateTime(c.startdate, sched.starttime),
-      sched.day
-    );
-    const end_dt = adjustDate(
-      toDateTime(c.startdate, sched.endtime),
-      sched.day
-    );
+    const start_dt = adjustDate(toDateTime(c.startdate, sched.starttime), sched.day);
+    const end_dt = adjustDate(toDateTime(c.startdate, sched.endtime), sched.day);
     const timesuffix = "-0" + start_dt.getTimezoneOffset() / 60 + ":00";
     event.start = {
       dateTime: start_dt.toISOString(), //.replace(".000Z", "") + timesuffix,
@@ -44,9 +38,7 @@ function toEvents(classs: Course): GoogleEvent[] {
     };
     const until_dt = toDateTime(c.enddate, sched.endtime);
     event.recurrence = [
-      `RRULE:FREQ=WEEKLY;UNTIL=${until_dt
-        .toISOString()
-        .replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${sched.day
+      `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${sched.day
         .split("")
         //@ts-ignore
         .map(x => dayCode[x])}`
@@ -83,12 +75,8 @@ function mergeEvents(events: GoogleEvent[]): GoogleEvent[] {
     if (match) {
       //merge
       console.log("match found!!!!!", match, event);
-      const [, prefix1, suffix1]: any = match.classTitle.match(
-        /([A-Za-z]+\d+)(\w+)/
-      );
-      const [, prefix2, suffix2]: any = event.classTitle.match(
-        /([A-Za-z]+\d+)(\w+)/
-      );
+      const [, prefix1, suffix1]: any = match.classTitle.match(/([A-Za-z]+\d+)(\w+)/);
+      const [, prefix2, suffix2]: any = event.classTitle.match(/([A-Za-z]+\d+)(\w+)/);
       if (!prefix1 == prefix2) {
         console.log(
           "CLASS MATCH ERROR: I thought these two classes were the same, but their prefixes didn't match:",
@@ -109,8 +97,7 @@ function mergeEvents(events: GoogleEvent[]): GoogleEvent[] {
           .sort()
           .toString()
           .replace(/,/g, "/");
-        suffix =
-          (containsLab ? "LAB" : "") + (containsLec ? "LEC" : "") + suffix;
+        suffix = (containsLab ? "LAB" : "") + (containsLec ? "LEC" : "") + suffix;
         console.log("new title:", prefix1 + suffix);
         match.summary = prefix1 + suffix;
       }
@@ -152,9 +139,7 @@ interface Schedule {
  */
 function harvestSchedule(): Course[] {
   const result: Course[] = [];
-  const rows0 = document.querySelectorAll(
-    "table[summary='Faculty Teaching Schedules'] > tbody > tr"
-  );
+  const rows0 = document.querySelectorAll("table[summary='Faculty Teaching Schedules'] > tbody > tr");
   const rows: HTMLTableRowElement[] = [];
   //remove waitlist rows.
   for (let i = 0; i < rows0.length; i++) {
@@ -173,10 +158,7 @@ function harvestSchedule(): Course[] {
       //@ts-ignore
       curObj = {};
       const childs = row.children;
-      curObj.course = (childs[1] as HTMLTableDataCellElement).innerText.replace(
-        "LEC",
-        ""
-      );
+      curObj.course = (childs[1] as HTMLTableDataCellElement).innerText.replace("LEC", "");
       curObj.title = (childs[2] as HTMLTableDataCellElement).innerText;
       curObj.startdate = (childs[3] as HTMLTableDataCellElement).innerText;
       curObj.enddate = (childs[4] as HTMLTableDataCellElement).innerText;
@@ -187,18 +169,14 @@ function harvestSchedule(): Course[] {
       //   const headers = row.querySelector("thead");
       const headers = ["building", "room", "day", "starttime", "endtime"];
       (curObj as Course).schedule = [] as Schedule[];
-      const rowsched = row
-        .querySelector("tbody")!
-        .querySelectorAll(":scope tr");
+      const rowsched = row.querySelector("tbody")!.querySelectorAll(":scope tr");
       console.log("rowsched", rowsched);
       for (let i = 0; i < rowsched.length; i++) {
         const schedObj: any = {};
         const cells = rowsched[i].children;
         for (let j = 1; j < cells.length; j++) {
           //first one is empty.
-          schedObj[headers[j - 1]] = (cells[
-            j
-          ] as HTMLTableDataCellElement).innerText;
+          schedObj[headers[j - 1]] = (cells[j] as HTMLTableDataCellElement).innerText;
         }
         curObj.schedule.push(schedObj as Schedule);
       }
@@ -218,7 +196,7 @@ function placeButton() {
   const x: Element = document.querySelector(".Page_Logo").nextElementSibling;
   x.innerHTML =
     x.innerHTML +
-    "<button id='calendar' onclick='callExport()'> Export to my Google Calendar!</button>";
+    "<button style=\"background:yellow;\" id='calendar' onclick='callExport()'> Export to my Google Calendar!</button>";
 }
 placeButton();
 
@@ -238,9 +216,10 @@ function callExport() {
     console.log("Events created for: " + event.htmlLink, event);
     const elem = document.createElement("div");
     elem.setAttribute("id", event.id);
+    elem.style.backgroundColor = "yellow";
     elem.innerHTML =
       "Events created for: " +
-      `<a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
+      `<a href="${event.htmlLink}" target="_blank">${event.summary}</a><button style=\"background:yellow;\" onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
     p!.append(elem);
   });
 }

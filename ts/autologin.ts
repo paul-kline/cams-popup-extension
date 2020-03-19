@@ -10,10 +10,8 @@ try {
 
 const auto_login = () => {
   console.log("attempting login");
-  let userLen = (document.querySelector("#txtUsername") as HTMLInputElement)
-    .value.length;
-  let pswLen = (document.querySelector("#txtPassword")! as HTMLInputElement)
-    .value.length;
+  let userLen = (document.querySelector("#txtUsername") as HTMLInputElement).value.length;
+  let pswLen = (document.querySelector("#txtPassword")! as HTMLInputElement).value.length;
   console.log("userlen", userLen);
   if ((userLen > 0 && pswLen > 0) || true) {
     console.log("attempting login click!");

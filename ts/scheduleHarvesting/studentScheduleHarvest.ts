@@ -38,10 +38,7 @@ title: "GENERAL COLLEGE PHYSICS I"
   event.classTitle = c.course;
   event.location = c.room;
   event.description = c.title;
-  const start_dt = adjustDate(
-    setTime(new Date(c.startdate), c.starttime),
-    c.day
-  );
+  const start_dt = adjustDate(setTime(new Date(c.startdate), c.starttime), c.day);
   const end_dt = adjustDate(setTime(new Date(c.startdate), c.endtime), c.day);
   const timesuffix = "-0" + start_dt.getTimezoneOffset() / 60 + ":00";
   event.start = {
@@ -55,9 +52,7 @@ title: "GENERAL COLLEGE PHYSICS I"
   if (c.enddate) {
     const until_dt = c.enddate;
     event.recurrence = [
-      `RRULE:FREQ=WEEKLY;UNTIL=${until_dt
-        .toISOString()
-        .replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${c.day
+      `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${c.day
         .split("")
         //@ts-ignore
         .map(x => dayCode[x])}`
@@ -92,9 +87,7 @@ function parseDate(str: string): Date {
   d.setMinutes(59);
   d.setHours(23);
   // console.log("str, str.split('-')", str, str.split("-"));
-  const [year, month, day]: any = str
-    .split("-")
-    .map(x => Number.parseInt(x, 10));
+  const [year, month, day]: any = str.split("-").map(x => Number.parseInt(x, 10));
   // console.log("year, month, day", year, month, day);
   d.setFullYear(year);
   d.setMonth(month - 1);
@@ -153,12 +146,7 @@ function harvestStudentSchedule(): StudentCourse[] {
  * @param {Date} date
  */
 function setInputDate(input: HTMLInputElement, date: Date) {
-  input.value =
-    date.getFullYear() +
-    "-" +
-    twof(date.getMonth() + 1) +
-    "-" +
-    twof(date.getDate());
+  input.value = date.getFullYear() + "-" + twof(date.getMonth() + 1) + "-" + twof(date.getDate());
 }
 /**
  * Ensure length >=2
@@ -169,16 +157,13 @@ function twof(x: string | number): string {
   return x.length < 2 ? "0" + x : x;
 }
 function placeButton() {
-  const x = document.querySelector(".Page_Logo")!
-    .nextElementSibling as HTMLDivElement;
+  const x = document.querySelector(".Page_Logo")!.nextElementSibling as HTMLDivElement;
   if (!x) {
-    console.error(
-      "cannot place button. nextelement sibling of .Page_Logo not found"
-    );
+    console.error("cannot place button. nextelement sibling of .Page_Logo not found");
   }
   x.innerHTML =
     x.innerHTML +
-    "<button id='calendar' onclick='callExport()'> Export to my Google Calendar!</button><div>Semester start:<input type='date' id='startdate'></div><div>Semester end:<input type='date' id='enddate'></div>";
+    "<button style=\"background:yellow;\" id='calendar' onclick='callExport()'> Export to my Google Calendar!</button><div>Semester start:<input type='date' id='startdate'></div><div>Semester end:<input type='date' id='enddate'></div>";
 }
 placeButton();
 function callExport() {
@@ -197,8 +182,9 @@ function callExport() {
   exportToGoogle(events, function(event: any) {
     console.log("Events created for: " + event.htmlLink, event);
     const elem = document.createElement("div");
+
     elem.setAttribute("id", event.id);
-    const str = `Events created for: <a href="${event.htmlLink}" target="_blank">${event.summary}</a><button onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
+    const str = `Events created for: <a href="${event.htmlLink}" target="_blank">${event.summary}</a><button style=\"background:yellow;\" onclick="deleteEvent('${event.id}',x=> document.getElementById('${event.id}').style.display='none')">delete event</button>`;
     elem.innerHTML = str;
     p!.append(elem);
   });
