@@ -23,10 +23,11 @@
         "https://portals.blackburn.edu/efaculty/cmFacultyAttendance.asp*"
       ],
       "js": ["ammendTitleToClass.js"]
-    },{
-      "matches":["https://portals.blackburn.edu/*"],
-      "js" : ["ammendMenu.js"]
-    }
+    },
+    {
+      "matches": ["https://portals.blackburn.edu/*"],
+      "js": ["ammendMenu.js"]
+    },
     {
       "matches": ["https://portals.blackburn.edu/efaculty/index.asp"],
       "js": ["./attendance/ammendHomepage.js"]
@@ -61,7 +62,7 @@
     {
       "matches": ["https://portals.blackburn.edu/efaculty/cePortalMatrixSchedule.asp*"],
 
-      "js": ["studentScheduleHarvestForOfficeHours.js"]
+      "js": ["./harvestStudents/studentScheduleHarvestForOfficeHours.js"]
     },
     {
       "matches": [
@@ -76,13 +77,18 @@
       "matches": ["https://portals.blackburn.edu/efaculty/ceSelectStudent.asp*"],
       "js": [
         "./scheduleHarvesting/googleCalendarTools.js",
-        "studentScheduleHarvestForOfficeHours.js",
-        "allStudentScheduleHarvest.js"
+        "./harvestStudents/studentOptionsHarvester.js",
+        "./harvestStudents/studentScheduleHarvestForOfficeHours.js",
+        "./harvestStudents/allStudentScheduleHarvest.js"
       ]
     },
     {
       "matches": ["https://portals.blackburn.edu/efaculty/ceFacultyEmailClass.asp*"],
       "js": ["emailgmail.js"]
+    },
+    {
+      "matches": ["https://portals.blackburn.edu/efaculty/ceStudentOptions.asp*"],
+      "js": ["./harvestStudents/studentOptionsHarvester.js"]
     }
   ],
   "permissions": ["storage"]

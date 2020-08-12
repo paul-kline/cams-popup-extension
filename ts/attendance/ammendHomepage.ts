@@ -11,8 +11,9 @@
  */
 function placeAttendanceButtons(): void {
   const page = document.querySelector("#mainBody");
-  //fetch stored classes, if any, and perform modification.
-  chrome.storage.sync.get("classes", async function(classes) {
+  //fetch stored classes, if any, and perform modification
+  //@ts-ignore.
+  chrome.storage.sync.get("classes", async function (classes) {
     classes = classes.classes;
     console.log("classes:", classes);
     //sort so they will show up alphabetically
@@ -53,7 +54,7 @@ async function goToAttendance(crs: string | number): Promise<Response> {
   const k = getKey();
   const r = await postData("https://portals.blackburn.edu/efaculty/SetcmSessionObjects.asp?ak=" + k, {
     crs: crs,
-    accessKey: k
+    accessKey: k,
   });
   console.log("response", r);
   window.location.href = "https://portals.blackburn.edu/efaculty/cmFacultyAttendanceDateRange.asp?ak=" + k;
@@ -64,6 +65,7 @@ async function goToAttendance(crs: string | number): Promise<Response> {
  * returns an object of key value pairs of the get params of the specified path.
  * @param path URL to harvest gat params from. Defaults to window.location.href
  */
+//@ts-ignore
 function getUrlVars(path: string = window.location.href): { [key: string]: string } {
   const vars: any = {};
   const parts = path.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m: any, key: any, value: any) => {
@@ -78,6 +80,7 @@ function getUrlVars(path: string = window.location.href): { [key: string]: strin
  * This harvests the key by looking at the courselist link which has constructed
  * the session key into the get param of that link.
  */
+//@ts-ignore
 function getKey(): string {
   // return getUrlVars().ak;
   //@ts-ignore
@@ -114,12 +117,12 @@ async function postData(url: string = "", data: any = {}): Promise<Response> {
     // credentials: "same-origin", // include, *same-origin, omit
     headers: {
       // 'Content-Type': 'application/json'
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/x-www-form-urlencoded",
     },
     redirect: "follow", // manual, *follow, error
     referrer: "no-referrer", // no-referrer, *client
     // body: formData // body data type must match "Content-Type" header
-    body: paramEncode(data)
+    body: paramEncode(data),
   });
   return response; // parses JSON response into native JavaScript objects
 }

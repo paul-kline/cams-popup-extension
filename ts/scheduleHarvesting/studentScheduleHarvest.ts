@@ -10,7 +10,7 @@ interface StudentCourse {
   starttime: string;
   endtime: string;
 }
-
+//@ts-ignore
 function toEvent(c: StudentCourse): GoogleEvent {
   /* 
 course: "PH201"
@@ -29,7 +29,7 @@ title: "GENERAL COLLEGE PHYSICS I"
     W: "WE",
     R: "TH",
     F: "FR",
-    S: "SA"
+    S: "SA",
   };
   //@ts-ignore
   const event: GoogleEvent = {};
@@ -43,11 +43,11 @@ title: "GENERAL COLLEGE PHYSICS I"
   const timesuffix = "-0" + start_dt.getTimezoneOffset() / 60 + ":00";
   event.start = {
     dateTime: start_dt.toISOString(), //.replace(".000Z", "") + timesuffix,
-    timeZone: "America/Chicago"
+    timeZone: "America/Chicago",
   };
   event.end = {
     dateTime: end_dt.toISOString(), //.replace(".000Z", "") + timesuffix,
-    timeZone: "America/Chicago"
+    timeZone: "America/Chicago",
   };
   if (c.enddate) {
     const until_dt = c.enddate;
@@ -55,22 +55,23 @@ title: "GENERAL COLLEGE PHYSICS I"
       `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${c.day
         .split("")
         //@ts-ignore
-        .map(x => dayCode[x])}`
+        .map((x) => dayCode[x])}`,
     ];
   } else {
     event.recurrence = [
       //@ts-ignore
-      `RRULE:FREQ=WEEKLY;WKST=SU;BYDAY=${c.day.split("").map(x => dayCode[x])}`
+      `RRULE:FREQ=WEEKLY;WKST=SU;BYDAY=${c.day.split("").map((x) => dayCode[x])}`,
     ];
   }
 
   // event.recurrence = `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")}`;
   event.attendees = [];
   event.reminders = {
-    useDefault: true
+    useDefault: true,
   };
   return event;
 }
+//@ts-ignore
 function toEvents(classes: StudentCourse[]) {
   return classes.map(toEvent);
 }
@@ -80,6 +81,7 @@ function toEvents(classes: StudentCourse[]) {
  * since student schedule page does not show them!
  * @param str expected form: yyyy-mm-dd
  */
+//@ts-ignore
 function parseDate(str: string): Date {
   //yyyy-mm-dd
   const d = new Date();
@@ -87,13 +89,14 @@ function parseDate(str: string): Date {
   d.setMinutes(59);
   d.setHours(23);
   // console.log("str, str.split('-')", str, str.split("-"));
-  const [year, month, day]: any = str.split("-").map(x => Number.parseInt(x, 10));
+  const [year, month, day]: any = str.split("-").map((x) => Number.parseInt(x, 10));
   // console.log("year, month, day", year, month, day);
   d.setFullYear(year);
   d.setMonth(month - 1);
   d.setDate(day);
   return d;
 }
+//@ts-ignore
 function parseDateFromId(id: string) {
   const e = document.getElementById(id) as HTMLInputElement;
   if (e) {
@@ -103,6 +106,7 @@ function parseDateFromId(id: string) {
 /**
  * creates the array of objects from the webpage.
  */
+//@ts-ignore
 function harvestStudentSchedule(): StudentCourse[] {
   const e = document.getElementById("startdate") as HTMLInputElement;
   const startDate = e && e.value ? parseDate(e.value) : new Date();
@@ -145,6 +149,7 @@ function harvestStudentSchedule(): StudentCourse[] {
  * @param {HTMLInputElement} input to set
  * @param {Date} date
  */
+//@ts-ignore
 function setInputDate(input: HTMLInputElement, date: Date) {
   input.value = date.getFullYear() + "-" + twof(date.getMonth() + 1) + "-" + twof(date.getDate());
 }
@@ -152,10 +157,12 @@ function setInputDate(input: HTMLInputElement, date: Date) {
  * Ensure length >=2
  * @param x
  */
+//@ts-ignore
 function twof(x: string | number): string {
   x = "" + x;
   return x.length < 2 ? "0" + x : x;
 }
+//@ts-ignore
 function placeButton() {
   const x = document.querySelector(".Page_Logo")!.nextElementSibling as HTMLDivElement;
   if (!x) {
@@ -166,12 +173,13 @@ function placeButton() {
     "<button style=\"background:yellow;\" id='calendar' onclick='callExport()'> Export to my Google Calendar!</button><div>Semester start:<input type='date' id='startdate'></div><div>Semester end:<input type='date' id='enddate'></div>";
 }
 placeButton();
+//@ts-ignore
 function callExport() {
   console.log("boop. export clicked");
   const scheds: StudentCourse[] = harvestStudentSchedule();
   console.log(
     "sched start times",
-    scheds.map(s => s.starttime)
+    scheds.map((s) => s.starttime)
   );
   const events = toEvents(scheds);
   console.log("events", events);
@@ -179,7 +187,7 @@ function callExport() {
   //   console.log(scheds.map(s => s.startdate));
   //   console.log(events.map(e => e.start));
   const p = document.querySelector(".Page_Logo")!.nextElementSibling;
-  exportToGoogle(events, function(event: any) {
+  exportToGoogle(events, function (event: any) {
     console.log("Events created for: " + event.htmlLink, event);
     const elem = document.createElement("div");
 
@@ -189,6 +197,7 @@ function callExport() {
     p!.append(elem);
   });
 }
+//@ts-ignore
 function addCode() {
   const elem = document.createElement("script");
   let code = toEvents.toString() + "\n";

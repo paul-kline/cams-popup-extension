@@ -12,13 +12,16 @@ function overrideSelectionChange() {
       document.getElementById("EMailSubmit").disabled = true;
       ev.preventDefault();
       const classVals = JSON.parse(option.value) as string[];
+      document.body.style.cursor = "wait";
+      (document.getElementById("gmail") as HTMLButtonElement).disabled = true;
       Promise.all(
-        classVals.map(v => {
+        classVals.map((v) => {
           return formSubmit(v);
         })
       )
-        .then(htmls => {
+        .then((htmls) => {
           const allEmails: string[] = [];
+          //@ts-ignore
           const superTable: HTMLTableElement = htmls[0].querySelector("table") as HTMLTableElement;
           const isPresent = (row: HTMLTableRowElement) => {
             const existingRows = superTable.querySelectorAll("tr");
@@ -33,7 +36,8 @@ function overrideSelectionChange() {
             console.log("We got a new one!!!:", row.cells[2].innerText.trim());
             return false;
           };
-          htmls.forEach(html => {
+          htmls.forEach((html) => {
+            //@ts-ignore
             const table = html.querySelector("table") as HTMLTableElement;
             const rows = table.querySelectorAll("tr");
             const emails = getEmailAddressesOnPage(html);
@@ -46,7 +50,7 @@ function overrideSelectionChange() {
                 superTable.appendChild(row);
               }
             }
-            emails.forEach(em => {
+            emails.forEach((em) => {
               if (!allEmails.includes(em)) {
                 allEmails.push(em);
               }
@@ -58,7 +62,9 @@ function overrideSelectionChange() {
           document.querySelector("#EMailForm").appendChild(superTable);
           return allEmails;
         })
-        .then(emails => {
+        .then((emails) => {
+          document.body.style.cursor = "";
+          (document.getElementById("gmail") as HTMLButtonElement).disabled = false;
           console.log("all emails are:", emails);
         });
       //   console.log("all emails:" + allEmails);
@@ -88,13 +94,13 @@ async function formSubmit(val: string = document.forms["EMailForm"].CourseName.v
 
   const r = await fetch(location.href, {
     method: "post",
-    body: data
+    body: data,
   })
-    .then(x => {
+    .then((x) => {
       // console.log("RESULT OF FETCH POST:", x);
       return x.text();
     })
-    .then(x => {
+    .then((x) => {
       //   console.log(x);
       return x;
     });
@@ -104,6 +110,7 @@ async function formSubmit(val: string = document.forms["EMailForm"].CourseName.v
   console.log("fetched:", getEmailAddressesOnPage(el));
   return el;
 }
+//@ts-ignore
 function addCode() {
   console.log("adding code");
   const bod = document.querySelector("body") as HTMLBodyElement;
@@ -116,6 +123,7 @@ addCode();
 
 function createButton(): HTMLButtonElement {
   const b = document.createElement("button");
+  b.id = "gmail";
   b.style.background = "yellow";
   b.innerText = "Send with Gmail (opens new editing window)";
   b.addEventListener("click", clicked);
@@ -138,6 +146,7 @@ function clicked(ev: Event) {
   ev.preventDefault();
   sout("clicked me!", ev);
   const emails = getEmailAddressesOnPage();
+
   const sub = getSubject();
   const bcc = getbcc();
   const body = getMessage();
@@ -170,11 +179,11 @@ function addOptions() {
   const select = document.querySelector("select") as HTMLSelectElement;
   const groups = groupOptions(getOptions());
   sout("groups are:", groups);
-  groups.forEach(group => {
+  groups.forEach((group) => {
     const opt = document.createElement("option");
     opt.innerHTML = group.name + "  --  (GMAIL ONLY)";
     opt.style.background = "yellow";
-    opt.value = JSON.stringify(group.options.map(x => x.value));
+    opt.value = JSON.stringify(group.options.map((x) => x.value));
     select.appendChild(opt);
   });
 
@@ -192,22 +201,22 @@ interface OptionGroup {
 }
 function groupOptions(options: HTMLOptionElement[]): OptionGroup[] {
   //filter excludes [select one] option
-  const options2 = options.filter(x => x.value.length > 0);
+  const options2 = options.filter((x) => x.value.length > 0);
   const answer: OptionGroup[] = [];
 
   const all = { name: "All", options: options2 };
   answer.push(all);
   //add groups.
-  options2.forEach(option => {
+  options2.forEach((option) => {
     const match = option.text.match(/^(\w+\d+)/);
     const m = match && match.length > 0 ? match[0] : "";
     (option as any).group = m;
   });
   const accountedFor: HTMLOptionElement[] = [];
 
-  options2.forEach(option => {
+  options2.forEach((option) => {
     const mygroup = (option as any).group;
-    const all = options2.filter(op => (op as any).group == mygroup && !accountedFor.includes(op));
+    const all = options2.filter((op) => (op as any).group == mygroup && !accountedFor.includes(op));
     //only create group if there's more than 1 match.
     if (all.length > 1) {
       //let's make a group!
@@ -219,6 +228,7 @@ function groupOptions(options: HTMLOptionElement[]): OptionGroup[] {
   return answer;
 }
 sout("options:", getOptions());
+//@ts-ignore
 function placeButton(b: HTMLButtonElement) {
   const em = document.querySelector("input[type='button'");
   em!.parentElement!.append(b);

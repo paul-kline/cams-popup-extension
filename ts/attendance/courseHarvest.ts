@@ -7,13 +7,10 @@
 /**
  * get params as object.
  */
+//@ts-ignore
 function getUrlVars(): { [key: string]: string } {
   const vars: { [key: string]: string } = {};
-  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
-    m,
-    key,
-    value
-  ) {
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
     vars[key] = value;
     return "";
   });
@@ -23,6 +20,7 @@ function getUrlVars(): { [key: string]: string } {
 /**
  * get the session key from get params.
  */
+//@ts-ignore
 function getKey(): string {
   return getUrlVars().ak;
 }
@@ -33,14 +31,15 @@ async function storeInfo() {
   console.log("course harvesting...");
   //   reset();
   const classes = parseClasses();
-  chrome.storage.sync.get("classes", function(storedClasses) {
+  //@ts-ignore
+  chrome.storage.sync.get("classes", function (storedClasses) {
     console.log("current storage contents", storedClasses);
   });
   //   console.log("Value currently is " + JSON.stringify(currentStoredClasses));
   //   console.log("stored classes", currentStoredClasses);
 
   //@ts-ignore : complains about callback type, idk
-  chrome.storage.sync.set({ classes: classes }, function(result: any) {
+  chrome.storage.sync.set({ classes: classes }, function (result: any) {
     console.log("Value is set to ", result);
   });
 }
@@ -57,22 +56,19 @@ function parseClasses(): Crs[] {
   const classes: Crs[] = [];
   console.log(
     //@ts-ignore
-    document
-      .querySelector(".Page_Content")
-      .querySelectorAll("a")
-      .toString()
+    document.querySelector(".Page_Content").querySelectorAll("a").toString()
   );
   //@ts-ignore
   document
     .querySelector(".Page_Content")
     .querySelectorAll("a")
-    .forEach(e => {
+    .forEach((e) => {
       console.log(e);
       console.log(e.outerHTML);
       classes.push({
         name: e.innerText.trim(),
         //@ts-ignore
-        crs: e.outerHTML.toString().match(/SelectCourse\('(\d+)'\)/)[1]
+        crs: e.outerHTML.toString().match(/SelectCourse\('(\d+)'\)/)[1],
       });
     });
 

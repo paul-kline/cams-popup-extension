@@ -25,7 +25,7 @@ interface GDate {
 function adjustDate(date: Date, dayss: string): Date {
   const daysLookup = ["U", "M", "T", "W", "R", "F", "S"];
   const days = dayss.split("");
-  const daysAsNumbers = days.map(d => daysLookup.indexOf(d));
+  const daysAsNumbers = days.map((d) => daysLookup.indexOf(d));
   if (daysAsNumbers.includes(date.getDay())) {
     return date;
   } else {
@@ -37,11 +37,7 @@ function adjustDate(date: Date, dayss: string): Date {
     }
   }
 
-  console.error(
-    "this should be impossible to reach. No future date was found in adjustDate",
-    date,
-    days
-  );
+  console.error("this should be impossible to reach. No future date was found in adjustDate", date, days);
   return date;
 }
 /**
@@ -81,7 +77,7 @@ function setTime(date: Date, timestr: string): Date {
   date.setMilliseconds(0);
   return date;
 }
-
+//@ts-ignore
 function addCode() {
   const elem = document.createElement("script");
   let code = exportToGoogle.toString() + "\n";
@@ -111,12 +107,12 @@ async function exportToGoogle(events: GoogleEvent[], callback: any) {
     return;
   }
   // const batch = gapi.client.newBatch();
-  events.forEach(event => {
+  events.forEach((event) => {
     console.log("event submitting is: ", event);
     //@ts-ignore : calendar type isn't known?
     const request = gapi.client.calendar.events.insert({
       calendarId: "primary",
-      resource: event
+      resource: event,
     });
 
     request.execute(callback);
@@ -131,11 +127,11 @@ async function exportToGoogle(events: GoogleEvent[], callback: any) {
 function deleteEvent(eventId: any, callback: (x: any, y: any) => any) {
   var params = {
     calendarId: "primary",
-    eventId: eventId
+    eventId: eventId,
   };
 
   //@ts-ignore
-  const request = gapi.client.calendar.events.delete(params, function(err) {
+  const request = gapi.client.calendar.events.delete(params, function (err) {
     if (err) {
       console.log("The API returned an error: " + err);
       return;
@@ -155,8 +151,7 @@ function googleCode() {
   console.log("googleCode...");
   // Client ID and API key from the Developer Console
   //this key is managed by paul.kline@blackburn.edu
-  (window as any).CLIENT_ID =
-    "1034386305664-ml1uq0ncrujg5hfo0dqd0im49tun1h73.apps.googleusercontent.com";
+  (window as any).CLIENT_ID = "1034386305664-ml1uq0ncrujg5hfo0dqd0im49tun1h73.apps.googleusercontent.com";
 
   //pauliankline@gmail.com : "820527871859-o85ov91ar8rrnos73i6qslvjov5361j1.apps.googleusercontent.com";
   // const clientsecret = "fedE3mPOcBfcLJmWkU2d-F0l";
@@ -166,9 +161,7 @@ function googleCode() {
   (window as any).API_KEY = "AIzaSyDQIAXi4vhBoqiKJ4Alc21LThU3J0hM0r0";
 
   // Array of API discovery doc URLs for APIs used by the quickstart
-  (window as any).DISCOVERY_DOCS = [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-  ];
+  (window as any).DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
   // Authorization scopes required by the API; multiple scopes can be
   // included, separated by spaces.
   (window as any).SCOPES = "https://www.googleapis.com/auth/calendar";
@@ -180,6 +173,7 @@ function googleCode() {
    */
   function handleClientLoad() {
     console.log("handleClientLoad...");
+    //@ts-ignore
     gapi.load("client:auth2", initClient);
   }
   (window as any).handleClientLoad = handleClientLoad;
@@ -190,6 +184,7 @@ function googleCode() {
   function initClient() {
     console.log("initClient...");
     //these are fine, they have placed on window object.
+    //@ts-ignore
     gapi.client
       .init({
         //@ts-ignore
@@ -199,19 +194,22 @@ function googleCode() {
         //@ts-ignore
         discoveryDocs: DISCOVERY_DOCS,
         //@ts-ignore
-        scope: SCOPES
+        scope: SCOPES,
       })
       .then(
-        function() {
+        function () {
           // Listen for sign-in state changes.
+          //@ts-ignore
           gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
           // Handle the initial sign-in state.
+          //@ts-ignore
           updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
           //   authorizeButton.onclick = handleAuthClick;
           //   signoutButton.onclick = handleSignoutClick;
         },
-        function(error) {
+        //@ts-ignore
+        function (error) {
           appendPre(JSON.stringify(error, null, 2));
         }
       );
@@ -244,6 +242,7 @@ function googleCode() {
     }
   ) {
     try {
+      //@ts-ignore
       return await gapi.auth2.getAuthInstance().signIn(f as any);
     } catch (e) {
       console.log("failed to sign in:", e);
@@ -258,6 +257,7 @@ function googleCode() {
    *  Sign out the user upon button click.
    */
   function handleSignoutClick(event: any) {
+    //@ts-ignore
     gapi.auth2.getAuthInstance().signOut();
   }
   (window as any).handleSignoutClick = handleSignoutClick;
@@ -290,7 +290,7 @@ function googleCode() {
         showDeleted: false,
         singleEvents: true,
         maxResults: 10,
-        orderBy: "startTime"
+        orderBy: "startTime",
       })
       .then((response: any) => {
         const events = response.result.items;
@@ -338,10 +338,7 @@ function mkGscriptElem(): HTMLScriptElement {
   elem.src = "https://apis.google.com/js/api.js";
   elem.setAttribute("onload", "this.onload=function(){};handleClientLoad()");
   //   elem.onload = "this.onload=function(){};handleClientLoad()";
-  elem.setAttribute(
-    "onreadystatechange",
-    "if (this.readyState === 'complete') this.onload()"
-  );
+  elem.setAttribute("onreadystatechange", "if (this.readyState === 'complete') this.onload()");
   // elem.onreadystatechange = "if (this.readyState === 'complete') this.onload()";
 
   return elem;

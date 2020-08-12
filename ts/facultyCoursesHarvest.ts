@@ -53,7 +53,7 @@ async function harvestCourses(pageStatus: any, div?: HTMLDivElement) {
   let detailsResolved = 0;
   const classesLen = classes.length;
   await Promise.all(
-    classes.map(c =>
+    classes.map((c) =>
       c.detailsPromise.then((x: any) => {
         detailsResolved++;
         if (div && Math.random() < 0.5) {
@@ -99,6 +99,7 @@ function postmessage() {
     console.log("target window was null");
   }
 }
+//@ts-ignore
 async function formSubmit() {
   const data = new URLSearchParams();
   const formElement: HTMLFormElement = (document.forms as any)["OptionsForm"] as any;
@@ -110,13 +111,13 @@ async function formSubmit() {
 
   return fetch(location.href, {
     method: "post",
-    body: data
+    body: data,
   })
-    .then(x => {
+    .then((x) => {
       // console.log("RESULT OF FETCH POST:", x);
       return x.text();
     })
-    .then(x => {
+    .then((x) => {
       //   console.log(x);
       return x;
     });
@@ -140,9 +141,7 @@ function harvestPage(doc: HTMLHtmlElement = document.querySelector("html") as an
     return [];
   }
   const headersElems = table.querySelectorAll(":scope thead>tr>th");
-  const headers = toArr(headersElems)
-    .map(toInnerText)
-    .map(toKey); //[];
+  const headers = toArr(headersElems).map(toInnerText).map(toKey); //[];
   // console.log("headers are", headers);
   const rows: NodeListOf<HTMLTableRowElement> = (table.querySelector("tbody") as any).children as any;
   (window as any).rows = rows;
@@ -187,8 +186,8 @@ function mkDetailsPromise(me: any, path: string) {
     }
     setTimeout(() => {
       fetch(url)
-        .then(x => x.text())
-        .then(text => {
+        .then((x) => x.text())
+        .then((text) => {
           const el = document.createElement("html");
           el.innerHTML = text;
           me.division = el.querySelectorAll("td")[5].innerText.trim();
@@ -197,7 +196,7 @@ function mkDetailsPromise(me: any, path: string) {
           } catch (e) {
             console.log(
               "something wrong in details promise",
-              toArr(el.querySelectorAll("td")).map(td => (td ? td.innerText.trim() : "td is null"))
+              toArr(el.querySelectorAll("td")).map((td) => (td ? td.innerText.trim() : "td is null"))
             );
             // console.error(e);
           }
@@ -237,6 +236,7 @@ function mkDetailsPromise(me: any, path: string) {
     }, 0);
   });
 }
+//@ts-ignore
 function toArr<T extends Node>(ls: NodeListOf<T>): T[] {
   const ans = [];
   for (let i = 0; i < ls.length; i++) {
@@ -249,9 +249,9 @@ function toKey(x: string): string {
 }
 function parseEquivalents(equivalentsTable: HTMLTableElement): any {
   const headers = toArr(equivalentsTable.querySelectorAll("th"))
-    .map(x => x.innerText.trim())
+    .map((x) => x.innerText.trim())
     .map(toKey);
-  const tds = toArr(equivalentsTable.querySelectorAll("td")).map(x => x.innerText.trim());
+  const tds = toArr(equivalentsTable.querySelectorAll("td")).map((x) => x.innerText.trim());
   const ans: any = {};
   headers.forEach((h, i) => {
     ans[h] = tds[i];
@@ -266,9 +266,7 @@ function parseScheduleTable(row: HTMLTableRowElement, obj: any = {}) {
   // console.log("row is", row);
   const headerElems = table.querySelectorAll(":scope .headerRow> th:not(.blankCell)");
 
-  const headers = toArr(headerElems)
-    .map(toInnerText)
-    .map(toKey);
+  const headers = toArr(headerElems).map(toInnerText).map(toKey);
   // console.log("headers are:", headers);
   //   obj.headers = headers;
   obj.schedules = [];
@@ -279,7 +277,7 @@ function parseScheduleTable(row: HTMLTableRowElement, obj: any = {}) {
     const tr = rows[i];
     const tds = toArr(tr.children as any).filter(
       //@ts-ignore
-      x => !x.className.includes("blankCell")
+      (x) => !x.className.includes("blankCell")
     );
     // console.log("tds", tds);
     for (let j = 0; j < tds.length; j++) {
@@ -314,6 +312,7 @@ function parseTitleRow(headers: string[], row: HTMLTableRowElement, obj: any = {
 function isTitleRow(row: HTMLTableRowElement): boolean {
   return row.className.search("courseInfo") >= 0;
 }
+//@ts-ignore
 function placeButton() {
   //@ts-ignore
   const x: any = document.querySelector(".Page_Logo");
@@ -328,6 +327,7 @@ placeButton();
  * This step is necessary because js code in an extention is actually sandboxed.
  * Though in this case, we need to avoid the sandbox.
  */
+//@ts-ignore
 function addCode() {
   const elem = document.createElement("script");
   let str = "";

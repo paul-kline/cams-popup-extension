@@ -4,6 +4,7 @@
  * Turns a parsed class into an array of google events.
  * @param classs
  */
+//@ts-ignore
 function toEvents(classs: Course): GoogleEvent[] {
   const dayCode = {
     U: "SU",
@@ -12,7 +13,7 @@ function toEvents(classs: Course): GoogleEvent[] {
     W: "WE",
     R: "TH",
     F: "FR",
-    S: "SA"
+    S: "SA",
   };
   const c = classs;
   const events = [];
@@ -30,23 +31,23 @@ function toEvents(classs: Course): GoogleEvent[] {
     const timesuffix = "-0" + start_dt.getTimezoneOffset() / 60 + ":00";
     event.start = {
       dateTime: start_dt.toISOString(), //.replace(".000Z", "") + timesuffix,
-      timeZone: "America/Chicago"
+      timeZone: "America/Chicago",
     };
     event.end = {
       dateTime: end_dt.toISOString(), //.replace(".000Z", "") + timesuffix,
-      timeZone: "America/Chicago"
+      timeZone: "America/Chicago",
     };
     const until_dt = toDateTime(c.enddate, sched.endtime);
     event.recurrence = [
       `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${sched.day
         .split("")
         //@ts-ignore
-        .map(x => dayCode[x])}`
+        .map((x) => dayCode[x])}`,
     ];
     // event.recurrence = `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")}`;
     event.attendees = [];
     event.reminders = {
-      useDefault: true
+      useDefault: true,
     };
 
     events.push(event);
@@ -64,9 +65,9 @@ function toEvents(classs: Course): GoogleEvent[] {
  */
 function mergeEvents(events: GoogleEvent[]): GoogleEvent[] {
   const result: GoogleEvent[] = [];
-  events.forEach(event => {
+  events.forEach((event) => {
     const match = result.find(
-      r =>
+      (r) =>
         r.start.dateTime == event.start.dateTime &&
         r.end.dateTime == event.end.dateTime &&
         r.location == event.location &&
@@ -191,6 +192,7 @@ function harvestSchedule(): Course[] {
  * places the export to google calendar button on the page.
  * Button calls callExport when clicked.
  */
+//@ts-ignore
 function placeButton() {
   //@ts-ignore
   const x: Element = document.querySelector(".Page_Logo").nextElementSibling;
@@ -205,6 +207,7 @@ placeButton();
  * 1. harvest the schedule information.
  * 2. export to google calendar.
  */
+//@ts-ignore
 function callExport() {
   console.log("boop. export clicked");
   const sched: Course[] = harvestSchedule();
@@ -212,7 +215,7 @@ function callExport() {
   console.log("schedule:", sched);
   console.log("events:", events);
   const p = document.getElementById("calendar")!.parentElement;
-  exportToGoogle(events, function(event: any) {
+  exportToGoogle(events, function (event: any) {
     console.log("Events created for: " + event.htmlLink, event);
     const elem = document.createElement("div");
     elem.setAttribute("id", event.id);
@@ -223,6 +226,7 @@ function callExport() {
     p!.append(elem);
   });
 }
+//@ts-ignore
 function addCode() {
   const elem = document.createElement("script");
   let code = toEvents.toString() + "\n";

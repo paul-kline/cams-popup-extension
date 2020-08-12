@@ -84,6 +84,7 @@ function mostRecentDayOption(options: HTMLOptionsCollection): string | null {
       setTimeout(() => {
         const e = document.querySelector("#datefrom");
         if (e) {
+          //@ts-ignore
           e.style.backgroundColor = "yellow";
           setSelector(e as HTMLSelectElement, TODAYDATE.toLocaleDateString());
         }
