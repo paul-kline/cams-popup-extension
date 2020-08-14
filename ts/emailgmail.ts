@@ -27,13 +27,15 @@ function overrideSelectionChange() {
             const existingRows = superTable.querySelectorAll("tr");
             for (let i = 0; i < existingRows.length; i++) {
               const er = existingRows[i];
-              if (er.cells[2].innerText.trim() == row.cells[2].innerText.trim()) {
+              //when a class has no students and the message "these are no students enrolled..." rows.cells[2] no exist.
+              //hence the existence checks first.
+              if (er.cells[2] && row.cells[2] && er.cells[2].innerText.trim() == row.cells[2].innerText.trim()) {
                 console.log("already here NOT ADDING:", row.cells[2].innerText.trim());
 
                 return true;
               }
             }
-            console.log("We got a new one!!!:", row.cells[2].innerText.trim());
+            console.log("We got a new one!!!:", row.cells[2] ? row.cells[2].innerText.trim() : row.cells);
             return false;
           };
           htmls.forEach((html) => {
@@ -252,7 +254,8 @@ function getinputContents(id: string): string {
 function getEmailAddressesOnPage(d: any = document): string[] {
   const tds = d.querySelectorAll("td[colspan='2']");
   const emails: string[] = [];
-  tds.forEach((x: any) => emails.push(x.innerText.trim()));
+  console.log("tds for email addresses are", tds);
+  tds.forEach((x: any) => (x && x.innerText ? emails.push(x.innerText.trim()) : ""));
   return emails;
 }
 function main() {
