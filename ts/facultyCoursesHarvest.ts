@@ -152,7 +152,7 @@ function harvestPage(doc: HTMLHtmlElement = document.querySelector("html") as an
     const row = rows[i];
     if (isTitleRow(row)) {
       //make new object
-      // console.log("row is title row!:", row);
+      console.log("row is title row!:", row, "currentObj", currentObj);
       // console.log("currentObj is", currentObj);
 
       if (currentObj) {
@@ -169,6 +169,10 @@ function harvestPage(doc: HTMLHtmlElement = document.querySelector("html") as an
       }
       parseScheduleTable(row, currentObj);
     }
+  }
+  if(!results.includes(currentObj)){
+    currentObj.detailsPromise = mkDetailsPromise(currentObj, currentObj.path);
+        results.push(currentObj);
   }
   // console.log("results", results);
   return results;
