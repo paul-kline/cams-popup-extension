@@ -6,6 +6,12 @@
  */
 //@ts-ignore
 function toEvents(classs: Course): GoogleEvent[] {
+  //@ts-ignore
+  if (!window.errors) {
+    //@ts-ignore
+    window.errors = []; //bad global I know, but I'm lazy.
+  }
+
   const dayCode = {
     U: "SU",
     M: "MO",
@@ -26,8 +32,28 @@ function toEvents(classs: Course): GoogleEvent[] {
     event.classTitle = c.course;
     event.location = sched.building + ": " + sched.room;
     event.description = c.title;
-    const start_dt = adjustDate(toDateTime(c.startdate, sched.starttime), sched.day);
-    const end_dt = adjustDate(toDateTime(c.startdate, sched.endtime), sched.day);
+    let start_dt;
+    let end_dt;
+    try {
+      start_dt = adjustDate(toDateTime(c.startdate, sched.starttime), sched.day);
+      end_dt = adjustDate(toDateTime(c.startdate, sched.endtime), sched.day);
+    } catch (e) {
+      //@ts-ignore
+      errors.push(
+        "Skipped exporting schedule for " +
+          c.course +
+          " because something was unparsable: days,start,end =" +
+          sched.day +
+          ", " +
+          sched.starttime +
+          ", " +
+          sched.endtime
+      );
+      console.log("oop! skipping this one,", c, event);
+      console.log("couldn't read the start or end dates which are:", sched.starttime, sched.endtime);
+      console.error(e);
+      continue;
+    }
     const timesuffix = "-0" + start_dt.getTimezoneOffset() / 60 + ":00";
     event.start = {
       dateTime: start_dt.toISOString(), //.replace(".000Z", "") + timesuffix,
@@ -38,11 +64,15 @@ function toEvents(classs: Course): GoogleEvent[] {
       timeZone: "America/Chicago",
     };
     const until_dt = toDateTime(c.enddate, sched.endtime);
+
+    //@ts-ignore //doesn't like string key for dayCode. too lazy to look up proper way.
+    const isoDays = sched.day.split("").map((x: string) => dayCode[x]);
+    console.log("ISO DAYS:", isoDays);
+    if (isoDays.find((x) => typeof x == "undefined")) {
+      console.error("bad iso day found");
+    }
     event.recurrence = [
-      `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${sched.day
-        .split("")
-        //@ts-ignore
-        .map((x) => dayCode[x])}`,
+      `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")};WKST=SU;BYDAY=${isoDays}`,
     ];
     // event.recurrence = `RRULE:FREQ=WEEKLY;UNTIL=${until_dt.toISOString().replace(/-|\.\d+|:/g, "")}`;
     event.attendees = [];
