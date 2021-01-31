@@ -38,8 +38,32 @@ title: "GENERAL COLLEGE PHYSICS I"
   event.classTitle = c.course;
   event.location = c.room;
   event.description = c.title;
-  const start_dt = adjustDate(setTime(new Date(c.startdate), c.starttime), c.day);
-  const end_dt = adjustDate(setTime(new Date(c.startdate), c.endtime), c.day);
+  // const start_dt = adjustDate(setTime(new Date(c.startdate), c.starttime), c.day);
+  // const end_dt = adjustDate(setTime(new Date(c.startdate), c.endtime), c.day);
+  let start_dt;
+  let end_dt;
+  try {
+    start_dt = adjustDate(setTime(new Date(c.startdate), c.starttime), c.day);
+    end_dt = adjustDate(setTime(new Date(c.startdate), c.endtime), c.day);
+  } catch (e) {
+    const er =
+      "Skipped exporting schedule for " +
+      c.course +
+      " because something was unparsable: days,start,end =" +
+      c.day +
+      ", " +
+      c.starttime +
+      ", " +
+      c.endtime;
+    //@ts-ignore
+    errors.push(er);
+    console.log("oop! skipping this one,", c, event);
+    console.log("couldn't read the start or end dates which are:", c.starttime, c.endtime);
+    console.error(e);
+    //@ts-ignore
+    event.error = er;
+    return event;
+  }
   const timesuffix = "-0" + start_dt.getTimezoneOffset() / 60 + ":00";
   event.start = {
     dateTime: start_dt.toISOString(), //.replace(".000Z", "") + timesuffix,
@@ -73,6 +97,11 @@ title: "GENERAL COLLEGE PHYSICS I"
 }
 //@ts-ignore
 function toEvents(classes: StudentCourse[]) {
+  //@ts-ignore
+  if (!window.errors) {
+    //@ts-ignore
+    window.errors = []; //bad global I know, but I'm lazy.
+  }
   return classes.map(toEvent);
 }
 

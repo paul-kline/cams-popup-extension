@@ -38,6 +38,7 @@ function adjustDate(date: Date, dayss: string): Date {
   }
 
   console.error("this should be impossible to reach. No future date was found in adjustDate", date, days);
+  throw "adjustDate could not read days parameter as real day:" + dayss;
   return date;
 }
 /**
@@ -108,6 +109,12 @@ async function exportToGoogle(events: GoogleEvent[], callback: any) {
   }
   // const batch = gapi.client.newBatch();
   events.forEach((event) => {
+    //@ts-ignore
+    if (event.error) {
+      //@ts-ignore
+      console.log("skipping this event in exportToGoogle since it has en error", event.error);
+      return;
+    }
     console.log("event submitting is: ", event);
     //@ts-ignore : calendar type isn't known?
     const request = gapi.client.calendar.events.insert({
@@ -119,6 +126,17 @@ async function exportToGoogle(events: GoogleEvent[], callback: any) {
 
     // batch.add(request);
   });
+  //@ts-ignore
+  if (errors) {
+    const p = document.getElementById("calendar")!.parentElement;
+    //@ts-ignore
+    errors.forEach((e) => {
+      const elem = document.createElement("div");
+      elem.style.backgroundColor = "red";
+      elem.innerHTML = e;
+      p!.append(elem);
+    });
+  }
   // batch.execute();
   // window.batch = batch;
   // console.log("batch:", batch);
