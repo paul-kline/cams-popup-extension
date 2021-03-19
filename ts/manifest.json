@@ -1,6 +1,6 @@
 {
   "name": "CAMS Helper",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Provides various improvements when interacting with the CAMS system.",
   "manifest_version": 2,
   "content_scripts": [
@@ -88,6 +88,9 @@
     {
       "matches": ["https://portals.blackburn.edu/efaculty/ceStudentOptions.asp*"],
       "js": ["./harvestStudents/studentOptionsHarvester.js"]
+    },
+    {"matches" : ["https://portals.blackburn.edu/efaculty/ceFacultyMaster.asp*"],
+    "js": ["Utils.js", "./courseMasterHarvest/courseMaster.js"]
     }
   ],
   "permissions": ["storage"]
