@@ -58,8 +58,13 @@ async function harvestMasterCourseList() {
   // sout("all pages", pages);
   const allCourses = await Promise.all(coursePagePromises);
   sout("allcourselinks", allCourses);
+  sout("json string", JSON.stringify(allCourses));
 }
-
+/**
+ * Gets the html page of the specified page.
+ * @param pg the number page to retrieve
+ * @returns the html of the page.
+ */
 async function getPage(pg: number): Promise<HTMLHtmlElement> {
   // sout("getting page", pg);
   // document.body.style.cursor = 'wait';
@@ -78,9 +83,14 @@ async function getPage(pg: number): Promise<HTMLHtmlElement> {
   html.innerHTML = pagetext;
   return html;
 }
-async function getAllClassLinksFromPage(html: HTMLHtmlElement) {
-  html.querySelectorAll;
-}
+// async function getAllClassLinksFromPage(html: HTMLHtmlElement) {
+//   html.querySelectorAll;
+// }
+/**
+ * Harvests the row for the link to the html page containing class info.
+ * @param row the htmltablerow to harvest from
+ * @returns the relative link to retrieve the course information page.
+ */
 function rowToUrl(row: HTMLTableRowElement): string {
   try {
     //@ts-ignore
@@ -90,9 +100,19 @@ function rowToUrl(row: HTMLTableRowElement): string {
     return "";
   }
 }
+/**
+ * Harvests the course rows from an html page.
+ * @param doc the document to harvest the rows from. defaults to document.
+ * @returns the html rows found in the page as an array.
+ */
 function getCourseRows(doc: HTML = document): HTMLTableRowElement[] {
   return toArr(doc.querySelectorAll("tbody>tr")) as HTMLTableRowElement[];
 }
+/**
+ * Examines the HTML page to learn the number of pages present which must be harvested.
+ * @param doc the document to examine. defaults to document.
+ * @returns the number of pages.
+ */
 function getNumPages(doc: HTMLDocument = document): number {
   try {
     //@ts-ignore
@@ -110,7 +130,13 @@ function getNumPages(doc: HTMLDocument = document): number {
     return 0;
   }
 }
+/**
+ * A unique id unlikely to be in use already for the added button.
+ */
 const BUTTID = "eijfevfe483";
+/**
+ * Adds the harvest courses button to the page.
+ */
 function addHarvestAllCourses() {
   const div = document.querySelector(
     ".course_management_coursename"
@@ -138,6 +164,11 @@ type CourseMaster = {
   coreqTree: any;
   id: string;
 };
+/**
+ * Harvests the preReq formula from the page. If no prereqs, empty string is returned.
+ * @param doc The document to harvest from. Defaults to document.
+ * @returns The preReq formula. empty string if no prereqs.
+ */
 function getPrereqFormula(doc: HTML = document): string {
   const prereqTable = getTable("Prerequisite Formula", doc);
   if (prereqTable) {
@@ -153,6 +184,11 @@ function getPrereqFormula(doc: HTML = document): string {
   }
   return "";
 }
+/**
+ * Harvests the coReq formula from the page. If no coReqs, empty string is returned.
+ * @param doc The document to harvest from. Defaults to document.
+ * @returns The coReq formula. empty string if no coReq.
+ */
 function getCoreqFormula(doc: HTML = document): string {
   const coreqTable = getTable(
     ["Corequisite Formula", "Co-requisite Formula"],
@@ -171,10 +207,15 @@ function getCoreqFormula(doc: HTML = document): string {
   }
   return "";
 }
-
+//just a test.
 parseReq(
   "( 3 Credits From Range [EN140LEC To EN265LEC GPA .67]) AND ( College Level=Sophomore OR College Level=Junior OR College Level=Senior)"
 );
+/**
+ * Harvest the course information from the webpage specified.
+ * @param doc The html page to harvest from. Defaults to document.
+ * @returns a CourseMaster instance.
+ */
 function harvestCourse(doc: HTML = document): CourseMaster {
   const row = doc.querySelectorAll("tbody>tr")[1] as HTMLTableRowElement;
   const tds = row.querySelectorAll("td");
@@ -200,11 +241,10 @@ function harvestCourse(doc: HTML = document): CourseMaster {
       department: dept,
       number: num,
       type: tp,
-      id: dept + num + tp,
+      id: dept + num,
       name: tds[3].innerText.trim(),
       division: tds[4].innerText.trim(),
       credits: Number.parseInt(tds[5].innerText.trim(), 10),
-      //@ts-ignore
       description: desc,
       prereqFormula: prereq,
       prereqTree: prereqTree,
@@ -243,8 +283,13 @@ function getTable(
   }
   return undefined;
 }
-
+/**
+ * Creates the Req object from the specified string.
+ * @param req
+ * @returns
+ */
 function parseReq(req: string): any {
+  //this ensures splitting by spaces finds [ and ] as symbols.
   const ls = req.replaceAll(/]/g, " ] ").replaceAll(/,/g, " , ").split(/\s+/);
   // console.log("ls is", ls);
   let answer: any[] = [];
@@ -285,14 +330,14 @@ function tokenize2(arr: string[]): any[] {
       if (i + 1 < arr.length && arr[i + 1] == "GPA" && i + 2 < arr.length) {
         //then there is a gpa requirement.
         const c = {
-          course: word,
+          course: word.replace(/LEC|LAB/, ""),
           gpa: Number.parseFloat(arr[i + 2]),
         };
         i += 2;
         answer.push(c);
       } else {
         //no gpa req.
-        answer.push(word);
+        answer.push(word.replace(/LEC|LAB/, ""));
       }
     } else if (!isNaN(word as any)) {
       //then this is a number. 3 Credits from range or x credits from list
