@@ -30,7 +30,12 @@
     },
     {
       "matches": ["https://portals.blackburn.edu/efaculty/index.asp"],
-      "js": ["./attendance/ammendHomepage.js", "./FA20RemoteLearnerCheck.js"]
+      "js": ["./attendance/ammendHomepage.js"]
+      
+    },
+    {
+      "matches": ["https://portals.blackburn.edu/efaculty/cmFacultyAttendance.asp*","https://portals.blackburn.edu/efaculty/cmFacultyAttendanceDateRange.asp*"],
+      "js": ["./attendance/ammendHomepage.js"]
     },
     {
       "matches": ["https://portals.blackburn.edu/efaculty/ceCourseList.asp*"],

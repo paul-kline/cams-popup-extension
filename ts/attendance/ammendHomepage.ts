@@ -5,12 +5,21 @@
  */
 //#############################################################################
 
+function getSelector() {
+  const path = location.pathname;
+  if (path.includes("Attendance")) {
+    return ".course_management_coursename";
+  } else {
+    return "#mainBody";
+  }
+}
 /**
  * This function adds attendance links to the main page body IF
  * classes are found in chrome storage.
  */
 function placeAttendanceButtons(): void {
-  const page = document.querySelector("#mainBody");
+  console.log("placing attendance buttons");
+  const page = document.querySelector(getSelector());
   //fetch stored classes, if any, and perform modification
   //@ts-ignore.
   chrome.storage.sync.get("classes", async function (classes) {
@@ -31,6 +40,7 @@ function placeAttendanceButtons(): void {
       };
     });
     if (page) {
+      page.appendChild(document.createElement("br"));
       classes.forEach((c: any) => {
         page.appendChild(c.elem);
       });

@@ -208,8 +208,11 @@ function getCoreqFormula(doc: HTML = document): string {
   return "";
 }
 //just a test.
+// parseReq(
+//   "( 3 Credits From Range [EN140LEC To EN265LEC GPA .67]) AND ( College Level=Sophomore OR College Level=Junior OR College Level=Senior)"
+// );
 parseReq(
-  "( 3 Credits From Range [EN140LEC To EN265LEC GPA .67]) AND ( College Level=Sophomore OR College Level=Junior OR College Level=Senior)"
+  "College Level=Senior OR ( Major=Mathematics with Secondary Certification AND ( College Level=Junior OR  College Level=Senior))"
 );
 /**
  * Harvest the course information from the webpage specified.
@@ -290,7 +293,12 @@ function getTable(
  */
 function parseReq(req: string): any {
   //this ensures splitting by spaces finds [ and ] as symbols.
-  const ls = req.replaceAll(/]/g, " ] ").replaceAll(/,/g, " , ").split(/\s+/);
+  const ls = req
+    .replaceAll(/]/g, " ] ")
+    .replaceAll(/\(/g, " ( ")
+    .replaceAll(/\)/g, " ) ")
+    .replaceAll(/,/g, " , ")
+    .split(/\s+/);
   // console.log("ls is", ls);
   let answer: any[] = [];
   ls.forEach((word) => {
@@ -343,14 +351,26 @@ function tokenize2(arr: string[]): any[] {
       //then this is a number. 3 Credits from range or x credits from list
       let ii = i + 5;
       const ls = [];
+      let gpareq = 0;
       while (arr[ii] != "]") {
-        ls.push(arr[ii++]);
+        const x = arr[ii++];
+        if (x == "GPA") {
+          //then gpa value is the next token. take and increment.
+          gpareq = Number.parseFloat(arr[ii++]);
+        } else if (x == "To") {
+          //do nothing, just skip it.
+        } else {
+          ls.push(x.replace(/LEC|LAB/, ""));
+        }
       }
-      const c = {
+      const c: any = {
         credits: Number.parseInt(word, 10),
         type: arr[i + 3],
         ls: ls,
       };
+      if (gpareq) {
+        c.gpa = gpareq;
+      }
       console.log("RANGE FOUND", c);
       answer.push(c);
       while (arr[i] != "]") {
